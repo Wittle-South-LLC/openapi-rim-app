@@ -1,0 +1,77 @@
+{
+  "name": "openapi-rim-app",
+  "version": "0.1.0",
+  "description": "Generates OpenAPI redux-immutable-model application",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "test": "NODE_ENV=test mocha --require @babel/register -- tests",
+    "gen": "src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wittlesouth/openapi-rim-app.git"
+  },
+  "keywords": [
+    "OpenAPI",
+    "Redux",
+    "Immutable"
+  ],
+  "author": "Eric Wittle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wittlesouth/openapi-rim-app/issues"
+  },
+  "homepage": "https://github.com/wittlesouth/openapi-rim-app#readme",
+  "dependencies": {
+    "js-yaml": "^3.12.1",
+    "redux-immutable-model": "^0.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/preset-env": "^7.2.3",
+    "handlebars": "^4.0.12"
+  },
+  "openapi-rim-app": {
+    "spec": "./spec/RoadmapsFTW_Schemas.yaml"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
+  },
+  "nyc": {
+    "exclude": [
+      "**/test-*.js",
+      "tests/**",
+      "**/TestUtils.js",
+      "**/TestData.js"
+    ],
+    "require": [
+      "@babel/register"
+    ],
+    "extension": [
+      ".jsx",
+      ".js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  }
+}

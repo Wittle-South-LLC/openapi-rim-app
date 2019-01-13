@@ -1,0 +1,12 @@
+{
+    "APP": {
+        "RIM_OBJECT_PATH": "./app/src/state",
+        "TEST_PATH": "./app/tests"
+    },
+    "TEMPLATES": {
+        "PATH": "./src/templates",
+        "RIM_OBJECT": "RimObject.mu",
+        "MOCHA": "MochaTest.mu",
+        "TESTDATA": "TestData.mu"
+    }
+}
