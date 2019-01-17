@@ -1,42 +1,26 @@
 /* {{ name }}.js - state object for {{ name }} state */
 import { Map } from 'immutable'
-import { defineMessages } from 'react-intl'
-import ReduxObject from './reduxObject/ReduxObject'
-import BaseService from './reduxObject/BaseService'
-import typeMessages from './messages/{{ name }}Messages'
-
-const TYPE = '{{ name }}'
-const TYPE_DESC = '{{ desc }}'
+import BaseRIMObject from 'redux-immutable-model'
+import defaultVerbs from 'redux-immutable-model'
 
 // Define any constants required for pattern validations
 {{#each patterns}}
 {{{ this }}}
 {{/each}}
 
-export const componentText = defineMessages({
-  createSuccess: { id: TYPE + '.createdMessage', defaultMessage: TYPE_DESC + ' created successfully' },
-  deleteSuccess: { id: TYPE + '.deletedMessage', defaultMessage: TYPE_DESC + ' deleted successfully' },
-  updateSuccess: { id: TYPE + '.updatedMessage', defaultMessage: TYPE_DESC + ' updated successfully' }
-})
-
-export class {{ name }} extends ReduxObject {
-  // Define the static constant for where these objects are in state
-  static STATE_PATH = TYPE + 's'
-  static API_PATH = '/' + TYPE
-  static NEW_ID = 'new'
+export class {{ name }} extends BaseRIMObject {
 
   // Define constants that correspond to field names in API data
   {{#each varnames }}
   {{{ this }}}
   {{/each}}
 
-  static _service = new BaseService({{ name }}, TYPE, {{ name }}.API_PATH, {{ name }}.STATE_PATH, componentText)
-  static msgs = typeMessages
+  static _ApiBasePath = '/{{ name }}s'
 
-  constructor (paramObj) {
-    super(paramObj)
+  constructor (createFrom, dirtyVal = false, fetchingVal = false, newVal = false) {
+    super(createFrom, dirtyVal, fetchingVal, newVal)
 
-    if (this.data === null && !paramObj) {
+    if (this._data === null && !paramObj) {
       // No param object and no data - create empty initialized object
       {{#each defvals }}
       {{{ this }}}
@@ -46,10 +30,6 @@ export class {{ name }} extends ReduxObject {
       {{#each transforms }}
       {{{ this }}}
       {{/each}}
-    }
-    // If we don't have a {{ name }} ID, set it to a new one
-    if (!this.data.has({{ name }}.ID) || !this.data.get({{ name }}.ID)) {
-      this.data = this.data.set({{ name }}.ID, {{ name }}.NEW_ID)
     }
   }
 

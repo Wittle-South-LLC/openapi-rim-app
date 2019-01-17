@@ -23,12 +23,11 @@ export default class Property {
     this.nullable = attributes['nullable']
     this.pattern = attributes['pattern']
     this.readOnly = 'readOnly' in attributes ? attributes.readOnly : false
-    console.log(`readOnly for ${this.name} is`, this.readOnly)
   }
 
   // ID code generation is special cased
   getCamelName () { return this.isId ? "id" : toCamelCase(this.name) }
-  getMixedName () { return this.isId ? "Id" : toMixedCase(this.name) }
+  getMixedName () { return this.isId ? "Identity": toMixedCase(this.name) }
   getUpperName () { return this.isId ? "ID" : toSnakeCase(this.name).toUpperCase() }
 
   // Provides initialization value for fields in new object

@@ -11,22 +11,22 @@ export default class RimObjectGenerator {
 
   // Generates the class static constants representing field names in JSON payload
   getFieldConstant(prop) {
-    return `static ${prop.getUpperName()} = '${prop.name}'`
+    return `static _${prop.getMixedName()}Key = '${prop.name}'`
   }
 
   // Generates statement to set default value for the property for new instances
   getDefaultValue(prop) {
     if (prop.getUpperName() === 'ID')
-      return `this.data = Map({[${this._name}.ID]: ${this._name}.NEW_ID,`
+      return `this._data = Map({[${this._name}._IdentityKey]: ${this._name}._NewID,`
     else
-      return `            [${this._name}.${prop.getUpperName()}]: ${prop.defaultValue()},`
+      return `             [${this._name}._${prop.getMixedName()}Key]: ${prop.defaultValue()},`
   }
 
   // Generates the getter function for the property
   getGetter(prop) {
-    let result = `get${prop.getMixedName()} () { return this.data.get(${this._name}.${prop.getUpperName()}) }`
+    let result = `get${prop.getMixedName()} () { return this._data.get(${this._name}._${prop.getMixedName()}Key) }`
     if (prop.type === 'string' && prop.format === 'date')
-      result += `\n  get${prop.getMixedName()}String () { return this.data.get(${this._name}.${prop.getUpperName()}).toLocaleString() }`
+      result += `\n  get${prop.getMixedName()}String () { return this._data.get(${this._name}._${prop.getUpperName()}Key).toLocaleString() }`
     return result
   }
 
@@ -62,7 +62,7 @@ export default class RimObjectGenerator {
     let transform = ""
     if (prop.type === 'object') transform = ".toJS()"
     else if (prop.type === 'string' && prop.format === 'date') transform = ".toJSON()"
-    return `[${this._name}.${prop.getUpperName()}]: this.get${prop.getMixedName()}()${transform},`
+    return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}()${transform},`
   }
 
   // Generates property validation call for new object validity test
@@ -72,7 +72,7 @@ export default class RimObjectGenerator {
 
   // Generates input transformation code for reading response payloads
   getInputTransform(prop) {
-    return `this.data = this.data.set(${this._name}.${prop.getUpperName()}, new Date(paramObj[${this._name}.${prop.getUpperName()}]))`
+    return `this._data = this.data.set(${this._name}.${prop.getUpperName()}, new Date(paramObj[${this._name}.${prop.getUpperName()}]))`
   }
 
   // Generates code to remove create-only fields from payload
