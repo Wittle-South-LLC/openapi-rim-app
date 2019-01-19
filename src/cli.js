@@ -6,6 +6,7 @@ var config = require('../src/config.json')      // Read configuration as an obje
 import Schema from './Schema'
 import ModelObject from './ModelObject'
 import RimObjectGenerator from './RimObjectGenerator'
+import RimTestGenerator from './RimTestGenerator'
 
 console.log("Hello World!")
 // console.log('Package.json = ', packageJson)
@@ -37,5 +38,7 @@ for (var objectName in modelObjects) {
   console.log(`Handling ${objectName}: `)
   const generator = new RimObjectGenerator(config, modelObjects[objectName])
   generator.render()
+  const testGenerator = new RimTestGenerator(config, modelObjects[objectName])
+  testGenerator.render()
 }
 // console.log('Schemas: ', JSON.stringify(mySchemas, null, 2))

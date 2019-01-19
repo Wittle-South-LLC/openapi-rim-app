@@ -46,7 +46,7 @@ export default class Property {
     if (!this.example) return undefined
     switch (this.type) {
       case 'string': return "'" + this.example + "'"
-      case 'object': return "'" + str(this.example) + "'"
+      case 'object': return "'" + JSON.stringify(this.example) + "'"
       default: return this.example
     }
   }

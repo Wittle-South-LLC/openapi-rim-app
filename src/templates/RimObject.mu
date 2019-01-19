@@ -1,7 +1,6 @@
 /* {{ name }}.js - state object for {{ name }} state */
 import { Map } from 'immutable'
-import BaseRIMObject from 'redux-immutable-model'
-import defaultVerbs from 'redux-immutable-model'
+import { BaseRIMObject } from 'redux-immutable-model'
 
 // Define any constants required for pattern validations
 {{#each patterns}}

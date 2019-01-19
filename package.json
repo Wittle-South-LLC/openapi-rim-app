@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
-    "test": "NODE_ENV=test mocha --require @babel/register -- tests",
-    "gen": "src/index"
+    "test": "NODE_ENV=test mocha --require @babel/register -- app/tests",
+    "cover": "NODE_ENV=test nyc _mocha --require @babel/register -- tests",
+    "gen": "babel-node src/cli.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,7 @@
   "homepage": "https://github.com/wittlesouth/openapi-rim-app#readme",
   "dependencies": {
     "js-yaml": "^3.12.1",
-    "redux-immutable-model": "^0.3.0"
+    "redux-immutable-model": "^0.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -33,7 +34,14 @@
     "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/preset-env": "^7.2.3",
-    "handlebars": "^4.0.12"
+    "babel-plugin-istanbul": "^5.1.0",
+    "chai": "^4.2.0",
+    "deep-diff": "^1.0.2",
+    "handlebars": "^4.0.12",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.6",
+    "nyc": "^13.1.0"
   },
   "openapi-rim-app": {
     "spec": "./spec/RoadmapsFTW_Schemas.yaml"
