@@ -1,11 +1,11 @@
-/* RimObjectGenerator.js - Generates redux-immutable-model objects */
+/* OrimObjectGenerator.js - Generates redux-immutable-model objects */
 import BaseModelGenerator from './BaseModelGenerator'
 
-export default class RimObjectGenerator extends BaseModelGenerator {
+export default class OrimObjectGenerator extends BaseModelGenerator {
   constructor(config, modelObject) {
     super (modelObject,
-      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['RIM_OBJECT'],
-      config['APP']['RIM_OBJECT_PATH'] + '/' + modelObject._name + '.js')
+      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['ORIM_OBJECT'],
+      config['APP']['ORIM_OBJECT_PATH'] + '/Orim' + modelObject._name + '.js')
     this._sections = ['varnames', 'defvals', 'getters', 'validators',
                       'payloads', 'newvalids', 'createOnlys', 'patterns']
   }

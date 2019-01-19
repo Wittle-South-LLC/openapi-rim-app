@@ -1,11 +1,13 @@
 {
     "APP": {
-        "RIM_OBJECT_PATH": "./app/src/state",
+        "STATE_OBJECT_PATH": "./app/src/state",
+        "ORIM_OBJECT_PATH": "./app/src/state/orim",
         "TEST_PATH": "./app/tests"
     },
     "TEMPLATES": {
         "PATH": "./src/templates",
-        "RIM_OBJECT": "RimObject.mu",
+        "STATE_OBJECT": "StateObject.mu",
+        "ORIM_OBJECT": "OrimObject.mu",
         "MOCHA": "MochaTest.mu",
         "TESTDATA": "TestData.mu"
     }

@@ -5,7 +5,8 @@ var packageJson = require('../package.json')    // Obtain configuration from pac
 var config = require('../src/config.json')      // Read configuration as an object
 import Schema from './Schema'
 import ModelObject from './ModelObject'
-import RimObjectGenerator from './RimObjectGenerator'
+import OrimObjectGenerator from './OrimObjectGenerator'
+import StateObjectGenerator from './StateObjectGenerator'
 import RimTestGenerator from './RimTestGenerator'
 import TestDataGenerator from './TestDataGenerator'
 
@@ -41,7 +42,9 @@ testDataGen.render()
 
 for (var objectName in modelObjects) {
   console.log(`Handling ${objectName}: `)
-  const generator = new RimObjectGenerator(config, modelObjects[objectName])
+  const stateGenerator = new StateObjectGenerator(config, modelObjects[objectName])
+  stateGenerator.render()
+  const generator = new OrimObjectGenerator(config, modelObjects[objectName])
   generator.render()
   const testGenerator = new RimTestGenerator(config, modelObjects[objectName])
   testGenerator.render()

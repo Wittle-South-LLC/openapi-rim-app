@@ -1,4 +1,6 @@
-/* {{ name }}.js - state object for {{ name }} state */
+/* Orim{{ name }}.js - generated state object for {{ name }} model objects */
+/* DO NOT EDIT THIS GENERATED FILE - Edit the subclass state file instead! */
+
 import { Map } from 'immutable'
 import { BaseRIMObject } from 'redux-immutable-model'
 
@@ -7,7 +9,7 @@ import { BaseRIMObject } from 'redux-immutable-model'
 {{{ this }}}
 {{/each}}
 
-export class {{ name }} extends BaseRIMObject {
+export class Orim{{ name }} extends BaseRIMObject {
 
   // Define constants that correspond to field names in API data
   {{#each varnames }}
