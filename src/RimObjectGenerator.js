@@ -1,7 +1,7 @@
 /* RimObjectGenerator.js - Generates redux-immutable-model objects */
-import BaseGenerator from './BaseGenerator'
+import BaseModelGenerator from './BaseModelGenerator'
 
-export default class RimObjectGenerator extends BaseGenerator {
+export default class RimObjectGenerator extends BaseModelGenerator {
   constructor(config, modelObject) {
     super (modelObject,
       config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['RIM_OBJECT'],

@@ -1,15 +1,15 @@
-/* BaseGenerator.js - Base object for source generation */
+/* BaseModelGenerator.js - Base object for source generation from model object */
 
-/* This class implements shared behavior for code generators. Specifically,
-   initializing a Moustach context, updating that context for each property
-   of a model object, and writing the resulting generated source file that
-   is a product of the Handlebars template and the context created from the
-   model object by the specific generator subclass */
+/* This class implements shared behavior for code generators based on a single
+   model object. Specifically, initializing a Handlebars context, updating that
+   context for each property of a model object, and writing the resulting 
+   generated source file that is a product of the Handlebars template and the
+   context created from the model object by the specific generator subclass */
 
 import Handlebars from 'handlebars'    // Template language for code generation
 var fs = require('fs')                 // Read/write files
 
-export default class BaseGenerator {
+export default class BaseModelGenerator {
   constructor(modelObject, templateFileName, outputFileName) {
     this._modelObject = modelObject            // A redux-immutable-object class
     this._name = modelObject._name

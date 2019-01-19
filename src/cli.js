@@ -7,6 +7,7 @@ import Schema from './Schema'
 import ModelObject from './ModelObject'
 import RimObjectGenerator from './RimObjectGenerator'
 import RimTestGenerator from './RimTestGenerator'
+import TestDataGenerator from './TestDataGenerator'
 
 console.log("Hello World!")
 // console.log('Package.json = ', packageJson)
@@ -33,6 +34,10 @@ for (var schema in doc.components.schemas) {
     modelObjects[objectName].setUpdateSchema(mySchemas[schema])
   }
 }
+
+// Generate singles
+const testDataGen = new TestDataGenerator(config, modelObjects)
+testDataGen.render()
 
 for (var objectName in modelObjects) {
   console.log(`Handling ${objectName}: `)

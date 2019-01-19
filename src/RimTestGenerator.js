@@ -1,7 +1,7 @@
 /* RimTestGenerator.js - Generates Mocha tests for generated RIM objects */
-import BaseGenerator from './BaseGenerator'
+import BaseModelGenerator from './BaseModelGenerator'
 
-export default class RimTestGenerator extends BaseGenerator {
+export default class RimTestGenerator extends BaseModelGenerator {
   constructor(config, modelObject) {
     super (modelObject,
       config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['MOCHA'],
