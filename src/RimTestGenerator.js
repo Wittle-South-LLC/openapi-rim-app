@@ -1,13 +1,12 @@
 /* RimTestGenerator.js - Generates Mocha tests for generated RIM objects */
+import BaseGenerator from './BaseGenerator'
 
-import Handlebars from 'handlebars'
-var fs = require('fs')
-
-export default class RimTestGenerator {
+export default class RimTestGenerator extends BaseGenerator {
   constructor(config, modelObject) {
-    this._config = config
-    this._modelObject = modelObject
-    this._name = modelObject._name
+    super (modelObject,
+      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['MOCHA'],
+      config['APP']['TEST_PATH'] + '/test-state-' + modelObject._name + '.js')
+    this._sections = ['getterTests', 'validTests', 'invalidTests']
   }
 
   getGetterTest(prop) {
@@ -24,28 +23,16 @@ export default class RimTestGenerator {
            '\n  })'
   }
 
-  // Create the dictionary that will be passed to the moustache template to generate the source file
-  getTemplateContext() {
-    // Create the empty results object
-    const result = {
-      'name': this._name,
-      'getterTests': [],
-      'validTests': [],
-      'invalidTests': []
-    }    
-    // Loop through the properties and populate the object
-    const propertyList = this._modelObject.getAllProperties()
-    for (var propName in propertyList) {
-      const prop = propertyList[propName]
-      result['getterTests'].push(this.getGetterTest(prop))
-    }
+  getInitialContext() {
+    const result = super.getInitialContext()
+    this._sections.forEach((key) => {
+      result[key] = []
+    })
     return result
   }
 
-  // Create the test script from the template script
-  render() {
-    const template = Handlebars.compile(fs.readFileSync(this._config['TEMPLATES']['PATH'] + '/' + this._config['TEMPLATES']['MOCHA'], 'utf8'))
-    const result = template(this.getTemplateContext())
-    fs.writeFileSync(this._config['APP']['TEST_PATH'] + '/test-state-' + this._name + '.js', result)
+  processProperty(context, prop) {
+    context['getterTests'].push(this.getGetterTest(prop))
+    return context
   }
 }

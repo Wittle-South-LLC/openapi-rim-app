@@ -1,12 +1,13 @@
 /* RimObjectGenerator.js - Generates redux-immutable-model objects */
-import Handlebars from 'handlebars'
-var fs = require('fs')
+import BaseGenerator from './BaseGenerator'
 
-export default class RimObjectGenerator {
+export default class RimObjectGenerator extends BaseGenerator {
   constructor(config, modelObject) {
-    this._config = config
-    this._modelObject = modelObject
-    this._name = modelObject._name
+    super (modelObject,
+      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['RIM_OBJECT'],
+      config['APP']['RIM_OBJECT_PATH'] + '/' + modelObject._name + '.js')
+    this._sections = ['varnames', 'defvals', 'getters', 'validators',
+                      'payloads', 'newvalids', 'createOnlys', 'patterns']
   }
 
   // Generates the class static constants representing field names in JSON payload
@@ -85,48 +86,35 @@ export default class RimObjectGenerator {
     return `const ${prop.name}Test = ${prop.pattern}`
   }
 
-  // Create the dictionary that will be passed to the moustache template to generate the source file
-  getTemplateContext() {
-    // Create the top level keys in the dictionary
-    const result = {
-      'name': this._name,
-      'desc': this._modelObject._description,
-      'varnames': [],
-      'defvals': [],
-      'getters': [],
-      'validators': [],
-      'payloads': [],
-      'newvalids': [],
-      'transforms': [],
-      'createOnlys': [],
-      'patterns': []
-    }
-    // Loop through the properties and populate the object
-    const propertyList = this._modelObject.getAllProperties()
-    for (var propName in propertyList) {
-      const prop = propertyList[propName]
-      result['varnames'].push(this.getFieldConstant(prop))
-      result['defvals'].push(this.getDefaultValue(prop))
-      result['getters'].push(this.getGetter(prop))
-      if (prop.needsInputTransform()) result['transforms'].push(this.getInputTransform(prop))
-      if (prop.needsValidation()) {
-        result['validators'].push(this.getValidator(prop))
-        result['newvalids'].push(this.getNewValidation(prop))
-      }
-      if (prop.getUpperName() != 'ID') result['payloads'].push(this.getPayloadElement(prop))
-      if (prop.createOnly) result['createOnlys'].push(this.getCreateOnly(prop))
-      if (prop.pattern) result['patterns'].push(this.getPatternDef(prop))
-    }
-    // Default values last element needs to not have trailing commna, and have object and function close
-    result['defvals'][result['defvals'].length-1] = result['defvals'][result['defvals'].length-1].slice(0, -1) + "})"
-    // Payloads value list needs to not have a trailing comma
-    result['payloads'][result['payloads'].length-1] = result['payloads'][result['payloads'].length-1].slice(0, -1)
+  getInitialContext() {
+    const result = super.getInitialContext()
+    result['desc'] = this._modelObject._description
+    this._sections.forEach((key) => {
+      result[key] = []
+    })
     return result
   }
 
-  render() {
-    const template = Handlebars.compile(fs.readFileSync(this._config['TEMPLATES']['PATH'] + '/' + this._config['TEMPLATES']['RIM_OBJECT'], 'utf8'))
-    const result = template(this.getTemplateContext())
-    fs.writeFileSync(this._config['APP']['RIM_OBJECT_PATH'] + '/' + this._name + '.js', result)
+  processProperty(context, prop) {
+    context['varnames'].push(this.getFieldConstant(prop))
+    context['defvals'].push(this.getDefaultValue(prop))
+    context['getters'].push(this.getGetter(prop))
+    if (prop.needsInputTransform()) context['transforms'].push(this.getInputTransform(prop))
+    if (prop.needsValidation()) {
+        context['validators'].push(this.getValidator(prop))
+        context['newvalids'].push(this.getNewValidation(prop))
+    }
+    if (prop.getUpperName() != 'ID') context['payloads'].push(this.getPayloadElement(prop))
+    if (prop.createOnly) context['createOnlys'].push(this.getCreateOnly(prop))
+    if (prop.pattern) context['patterns'].push(this.getPatternDef(prop))
+    return context
+  }
+
+  finalizeContext(context) {
+    // Default values last element needs to not have trailing commna, and have object and function close
+    context['defvals'][context['defvals'].length-1] = context['defvals'][context['defvals'].length-1].slice(0, -1) + "})"
+    // Payloads value list needs to not have a trailing comma
+    context['payloads'][context['payloads'].length-1] = context['payloads'][context['payloads'].length-1].slice(0, -1)
+    return context
   }
 }
