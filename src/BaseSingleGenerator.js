@@ -26,6 +26,7 @@ export default class BaseSingleGenerator {
  
   // This is a base method intended to be overridden in subclasses; it should update
   // the given context as needed based on the provided model
+  /* istanbul ignore next - this is essentially an abstract method */
   processModel(context, model) {
     return context
   }
@@ -42,6 +43,7 @@ export default class BaseSingleGenerator {
   // This is a base method intended to be overridden in subclasses; it should
   // do any post-processing on the context needed after all properpty updates
   // are complete
+  /* istanbul ignore next - this is essentially an abstract method */
   finalizeContext(context) {
     return context
   }

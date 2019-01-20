@@ -26,7 +26,7 @@ export default class Property {
   }
 
   // ID code generation is special cased
-  getCamelName () { return this.isId ? "id" : toCamelCase(this.name) }
+//  getCamelName () { return this.isId ? "id" : toCamelCase(this.name) }
   getMixedName () { return this.isId ? "Identity": toMixedCase(this.name) }
   getUpperName () { return this.isId ? "ID" : toSnakeCase(this.name).toUpperCase() }
 
@@ -34,7 +34,6 @@ export default class Property {
   defaultValue () {
     switch (this.type) {
       case 'string': return this.format === 'date' ? "new Date(0)" : "''"
-      case 'date': return 'new Date(0)'
       case 'object': return 'Map({})'
       case 'number': return '0'
       default: return 'undefined'
@@ -68,10 +67,5 @@ export default class Property {
   // Returns true if this property needs type transformation when reading server response
   needsInputTransform () {
     return this.type === 'string' && this.format === 'date'
-  }
-
-  // Returns true if this property needs type transformation when preparing a request
-  needsOutputTransform () {
-    return (this.type === 'string' && this.format === 'date') || (this.type === 'object')
   }
 }

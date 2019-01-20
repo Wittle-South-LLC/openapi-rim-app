@@ -55,6 +55,11 @@ components:
           description: E-Mail address for user
           pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           example: 'testing@gmail.com'
+        password:
+          type: string
+          example: '123456'
+          description: Password for user
+          x-wsag-create-only: true
     Roadmap:
       x-wsag-create: Roadmap
       description: Roadmap

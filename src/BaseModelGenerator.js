@@ -26,6 +26,7 @@ export default class BaseModelGenerator {
  
   // This is a base method intended to be overridden in subclasses; it should update
   // the given context as needed based on the provided property
+  /* istanbul ignore next - This is essentially an abstract method */
   processProperty(context, prop) {
     return context
   }

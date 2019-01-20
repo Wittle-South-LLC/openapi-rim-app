@@ -30,10 +30,10 @@ export default class ModelObject {
     }
     return result
   }
-  getCamelName() { return toCamelCase(this._name) }
+//  getCamelName() { return toCamelCase(this._name) }
   getIdentitySchema() { return this._identitySchema }
   getMixedName() { return toMixedCase(this._name) }
-  getSnakeName() { return toSnakeCase(this.name) }
+//  getSnakeName() { return toSnakeCase(this.name) }
   getUpdateSchema() { return this._updateSchema }
   setIdentitySchema(schema) { this._identitySchema = schema }
   setUpdateSchema(schema) { this._updateSchema = schema }
