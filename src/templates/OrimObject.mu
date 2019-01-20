@@ -19,7 +19,7 @@ export default class {{ name }} extends BaseRIMObject {
   static _ApiBasePath = '/{{ modelName }}s'
   static _NewID = 'New{{ modelName }}'
 
-  constructor (createFrom, dirtyVal = false, fetchingVal = false, newVal = false) {
+  constructor (createFrom, dirtyVal, fetchingVal, newVal) {
     super(createFrom, dirtyVal, fetchingVal, newVal)
 
     if (!createFrom) {
@@ -62,13 +62,11 @@ export default class {{ name }} extends BaseRIMObject {
     return payload
   }
 
-  validateNew () {
-    {{#each newvalids }}
+  isValid () {
+    let result = true
+    {{#each valids }}
     {{{ this }}}
     {{/each}}
-  }
-
-  validateUpdate () {
-    return this.validateNew()
+    return result
   }
 }

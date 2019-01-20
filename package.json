@@ -27,7 +27,7 @@
   "homepage": "https://github.com/wittlesouth/openapi-rim-app#readme",
   "dependencies": {
     "js-yaml": "^3.12.1",
-    "redux-immutable-model": "^0.3.9"
+    "redux-immutable-model": "^0.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

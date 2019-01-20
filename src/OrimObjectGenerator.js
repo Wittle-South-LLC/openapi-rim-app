@@ -7,7 +7,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
       config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['ORIM_OBJECT'],
       config['APP']['ORIM_OBJECT_PATH'] + '/Orim' + modelObject._name + '.js')
     this._sections = ['varnames', 'defvals', 'getters', 'transforms', 'validators',
-                      'payloads', 'newvalids', 'createOnlys', 'patterns']
+                      'payloads', 'valids', 'createOnlys', 'patterns']
     this._name = 'Orim' + modelObject._name
   }
 
@@ -28,7 +28,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
   getGetter(prop) {
     let result = `get${prop.getMixedName()} () { return this._data.get(${this._name}._${prop.getMixedName()}Key) }`
     if (prop.type === 'string' && prop.format === 'date')
-      result += `\n  get${prop.getMixedName()}String () { return this._data.get(${this._name}._${prop.getUpperName()}Key).toLocaleString() }`
+      result += `\n  get${prop.getMixedName()}String () { return this._data.get(${this._name}._${prop.getMixedName()}Key).toLocaleString() }`
     return result
   }
 
@@ -68,8 +68,8 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
   }
 
   // Generates property validation call for new object validity test
-  getNewValidation(prop) {
-    return `if (!this.is${prop.getMixedName()}Valid()) { return ${this._name}.msgs.invalid${prop.getMixedName()}Message }`
+  getValids(prop) {
+    return `if (!this.is${prop.getMixedName()}Valid()) { result = false }`
   }
 
   // Generates input transformation code for reading response payloads
@@ -103,9 +103,9 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
     if (prop.needsInputTransform()) context['transforms'].push(this.getInputTransform(prop))
     if (prop.needsValidation()) {
         context['validators'].push(this.getValidator(prop))
-        context['newvalids'].push(this.getNewValidation(prop))
+        context['valids'].push(this.getValids(prop))
     }
-    if (prop.getUpperName() != 'ID') context['payloads'].push(this.getPayloadElement(prop))
+    if (!prop.readOnly) context['payloads'].push(this.getPayloadElement(prop))
     if (prop.createOnly) context['createOnlys'].push(this.getCreateOnly(prop))
     if (prop.pattern) context['patterns'].push(this.getPatternDef(prop))
     return context
