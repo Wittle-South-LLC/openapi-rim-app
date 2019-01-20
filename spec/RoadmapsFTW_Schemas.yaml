@@ -75,6 +75,7 @@ components:
           example: Product Release 1.0
         record_created:
           type: string
+          format: date
           description: Date this record was created
           example: '2019-01-05T00:00:00.000Z'
           readOnly: true
@@ -128,6 +129,7 @@ components:
           example: '2019-03-31T00:00:00.000Z'
         record_created:
           type: string
+          format: date
           description: Date this record was created
           example: '2019-01-05T00:00:00.001Z'
           readOnly: true
@@ -218,6 +220,7 @@ components:
           nullable: true
         record_created:
           type: string
+          format: date
           example: '2019-01-05T00:00:00.002Z'
           description: Date this record was created
           readOnly: true

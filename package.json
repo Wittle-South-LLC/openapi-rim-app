@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "test": "NODE_ENV=test mocha --require @babel/register -- app/tests",
-    "cover": "NODE_ENV=test nyc _mocha --require @babel/register -- tests",
+    "_test": "babel-node src/cli.js && _mocha --require @babel/register -- app/tests",
+    "cover": "NODE_ENV=test nyc npm run _test",
     "gen": "babel-node src/cli.js"
   },
   "repository": {
