@@ -9,13 +9,13 @@ export default class Property {
     this.type = attributes.type
     this.baseObject = 'x-wsag-base-object' in attributes ? attributes['x-wsag-base-object'] : false
     this.createOnly = 'x-wsag-create-only' in attributes ? attributes['x-wsag-create-only'] : false
+    this.isId = 'x-wsag-model-id' in attributes ? attributes['x-wsag-model-id'] : false
     this.description = attributes['description']
     this.enum = attributes['enum']
     this.example = attributes['example']
     this.exclusiveMaximum = 'exclusiveMaximum' in attributes ? attributes.exclusiveMaximum : false
     this.exclusiveMinimum = 'exclusiveMinimum' in attributes ? attributes.exclusiveMinimum : false
     this.format = attributes['format']
-    this.isId = toSnakeCase(this.schemaName) + "_id" === this.name
     this.maximum = attributes['maxiumum']
     this.maxLength = attributes['maxLength']
     this.minimum = attributes['minimum']
@@ -28,7 +28,7 @@ export default class Property {
   // ID code generation is special cased
 //  getCamelName () { return this.isId ? "id" : toCamelCase(this.name) }
   getMixedName () { return this.isId ? "Identity": toMixedCase(this.name) }
-  getUpperName () { return this.isId ? "ID" : toSnakeCase(this.name).toUpperCase() }
+//  getUpperName () { return this.isId ? "ID" : toSnakeCase(this.name).toUpperCase() }
 
   // Provides initialization value for fields in new object
   defaultValue () {
@@ -42,7 +42,7 @@ export default class Property {
 
   // Get example in code form
   exampleValue () {
-    if (!this.example) return undefined
+    if (!this.example) return 'null'
     switch (this.type) {
       case 'string': return "'" + this.example + "'"
       case 'object': return JSON.stringify(this.example)

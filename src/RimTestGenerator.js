@@ -47,7 +47,7 @@ export default class RimTestGenerator extends BaseModelGenerator {
     for (let propName in myProperties) {
       const prop = myProperties[propName]
       if (!prop.readOnly) {
-        resultObj[prop.name] = prop.example
+        resultObj[prop.name] = prop.example ? prop.example : null
       }
     }
     return `it ('getCreatePayload() returns correct payload', () => {\n` +
@@ -60,7 +60,7 @@ export default class RimTestGenerator extends BaseModelGenerator {
     for (let propName in myProperties) {
       const prop = myProperties[propName]
       if (!prop.readOnly && !prop.createOnly) {
-        resultObj[prop.name] = prop.example
+        resultObj[prop.name] = prop.example ? prop.example : null
       }
     }
     return `it ('getUpdatePayload() returns correct payload', () => {\n` +

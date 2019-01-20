@@ -17,8 +17,8 @@ export default class Schema {
       propertiesYaml = attributes['properties']
     } else if (attributes['allOf']) {
       var allOf = attributes['allOf']
-      for (var item in allOf) {
-        if (!allOf.hasOwnProperty(item)) continue
+      for (var i = 0; i < allOf.length; i++) {
+        let item = allOf[i]
         if (item['type'] === 'object') {
           propertiesYaml = item['properties']
         } else if (item['$ref']) {
@@ -26,10 +26,10 @@ export default class Schema {
         }
       }
     }
+    /* istanbul ignore else */
     if (propertiesYaml) {
       for (var property in propertiesYaml) {
-        if (!attributes.properties.hasOwnProperty(property)) continue
-        this._properties[property] = new Property(name, property, attributes.properties[property])
+        this._properties[property] = new Property(name, property, propertiesYaml[property])
       }
     }
   }
@@ -37,10 +37,5 @@ export default class Schema {
   // Return the dictionary of properties for this schema
   getProperties () {
     return this._properties
-  }
-
-  // Return a Property object for the given name, if it exists in the schema
-  getProperty (name) {
-    return this._properties[name]
   }
 }

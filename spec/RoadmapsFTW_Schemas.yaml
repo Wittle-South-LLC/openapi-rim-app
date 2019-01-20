@@ -32,18 +32,25 @@ components:
         password:
           type: string
           description: Password of user attemptingt to log in
-    User:
+    UserFull:
+      x-wsag-update: User
+      allOf:
+        - $ref: '#/components/schemas/UserCreate'
+        - type: object
+          properties:
+            user_id:
+              type: string
+              x-wsag-model-id: true
+              description: Unique User Identifier
+              readOnly: true
+              example: 'UserID1'
+    UserCreate:
       type: object
       x-wsag-create: User
       description: User
       required:
         - username
       properties:
-        user_id:
-          type: string
-          description: Unique User Identifier
-          readOnly: true
-          example: 'UserID1'
         username:
           type: string
           description: Login user name
@@ -69,6 +76,7 @@ components:
       properties:
         roadmap_id:
           type: string
+          x-wsag-model-id: true
           description: Unique Identifier (UUID) for the roadmap
           readOnly: true
           example: Roadmap1
@@ -107,6 +115,7 @@ components:
         roadmap_item_id:
           type: string
           description: Unique Identifier (UUID) for the roadmap item
+          x-wsag-model-id: true
           readOnly: true
           example: RoadmapItem1
         roadmap_sequence_id:
@@ -132,6 +141,18 @@ components:
           format: date
           nullable: true
           example: '2019-03-31T00:00:00.000Z'
+        code_coverage:
+          type: number
+          description: Field to test exclusiveMinimum and exclusiveMaximum
+          minimum: 10
+          maximum: 20
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+          example: 11
+        code_coverage2:
+          type: string
+          description: Field to test no example
+          nullable: true
         record_created:
           type: string
           format: date
@@ -192,6 +213,7 @@ components:
         tag_id:
           type: string
           description: Unique Identifier (UUID) for the tag
+          x-wsag-model-id: true
           readOnly: true
           example: Tag1
         name:

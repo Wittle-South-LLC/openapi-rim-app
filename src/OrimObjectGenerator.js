@@ -18,7 +18,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
 
   // Generates statement to set default value for the property for new instances
   getDefaultValue(prop) {
-    if (prop.getUpperName() === 'ID')
+    if (prop.isId)
       return `this._data = Map({[${this._name}._IdentityKey]: ${this._name}._NewID,`
     else
       return `             [${this._name}._${prop.getMixedName()}Key]: ${prop.defaultValue()},`
@@ -64,7 +64,11 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
     let transform = ""
     if (prop.type === 'object') transform = ".toJS()"
     else if (prop.type === 'string' && prop.format === 'date') transform = ".toJSON()"
-    return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}()${transform},`
+    if (!prop.nullable) {
+      return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}()${transform},`
+    } else {
+      return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}() ? this.get${prop.getMixedName()}()${transform} : null,`
+    }
   }
 
   // Generates property validation call for new object validity test

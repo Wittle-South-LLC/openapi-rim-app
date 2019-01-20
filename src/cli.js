@@ -11,9 +11,6 @@ import StateObjectGenerator from './StateObjectGenerator'
 import RimTestGenerator from './RimTestGenerator'
 import TestDataGenerator from './TestDataGenerator'
 
-console.log("Hello World!")
-// console.log('Package.json = ', packageJson)
-
 const filename = packageJson['openapi-rim-app']['spec']
 console.log(`Filename: ${filename}`)
 var doc = yaml.safeLoad(fs.readFileSync(filename, 'utf8'))
@@ -21,7 +18,6 @@ console.log(`Title: ${doc.info.title}`)
 var mySchemas = {}
 var modelObjects = {}
 for (var schema in doc.components.schemas) {
-  if (!doc.components.schemas.hasOwnProperty(schema)) continue
   mySchemas[schema] = new Schema(schema, doc.components.schemas[schema])
   if (mySchemas[schema].identityObject) {
     let objectName = mySchemas[schema].identityObject
