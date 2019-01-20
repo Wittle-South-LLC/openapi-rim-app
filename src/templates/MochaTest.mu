@@ -3,24 +3,26 @@ import { describe, it, beforeEach } from 'mocha'
 import chai from 'chai'
 // import nock from 'nock'
 // import { isd } from './TestUtils'
-import { {{name}} } from '../src/state/{{ name }}'
+import {{name}} from '../src/state/{{ name }}'
+import { {{name}}Service } from '../src/state/OrimServices'
 // import baseApp from '../src/state/baseApp'
-// import { defaultState } from './TestData'
+import { defaultState } from './TestData'
 // import { testCreateNew, testEditField, testLogin, testSaveNew,
 //          testSaveUpdate, testSaveDelete } from './ActionTests'
 
-const TEST_ID = '{{ name }}1'
+const TEST_ID = {{{ exampleId }}}
 const TCLASS = {{ name }}
+const TSERVICE = {{ name }}Service
 
 describe('{{ name }}: testing RimObject actions', () => {
   beforeEach(() => {
-    TCLASS.setState(defaultState.get(TCLASS.STATE_PATH))
+    TSERVICE.setState(defaultState.get(TSERVICE.getStatePath()))
   })
   it('new returns an empty object', () => {
     let myObj = new TCLASS()
     chai.expect(myObj.getName()).to.equal('')
   })
-  let testObj = TCLASS.getById(TEST_ID)
+  let testObj = TSERVICE.getById(TEST_ID)
   // Basic tests of accessor methods
   it('getId() returns ID', () => {
     chai.expect(testObj.getId()).to.equal(TEST_ID)

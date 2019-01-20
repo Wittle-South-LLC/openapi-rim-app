@@ -21,7 +21,7 @@ export default class BaseModelGenerator {
   // This is a base method intended to be overridden in subclasses; it should return
   // an initialized context for the specific source file being generated
   getInitialContext() {
-    return { name: this._name }
+    return { name: this._name, modelName: this._modelObject._name }
   }
  
   // This is a base method intended to be overridden in subclasses; it should update

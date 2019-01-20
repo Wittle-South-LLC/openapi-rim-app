@@ -25,6 +25,7 @@ export default class RimTestGenerator extends BaseModelGenerator {
 
   getInitialContext() {
     const result = super.getInitialContext()
+    result['exampleId'] = this._modelObject.getIdProperty().exampleValue()
     this._sections.forEach((key) => {
       result[key] = []
     })

@@ -6,8 +6,9 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
     super (modelObject,
       config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['ORIM_OBJECT'],
       config['APP']['ORIM_OBJECT_PATH'] + '/Orim' + modelObject._name + '.js')
-    this._sections = ['varnames', 'defvals', 'getters', 'validators',
+    this._sections = ['varnames', 'defvals', 'getters', 'transforms', 'validators',
                       'payloads', 'newvalids', 'createOnlys', 'patterns']
+    this._name = 'Orim' + modelObject._name
   }
 
   // Generates the class static constants representing field names in JSON payload
@@ -73,7 +74,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
 
   // Generates input transformation code for reading response payloads
   getInputTransform(prop) {
-    return `this._data = this.data.set(${this._name}.${prop.getUpperName()}, new Date(paramObj[${this._name}.${prop.getUpperName()}]))`
+    return `this._data = this._data.set(${this._name}._${prop.getMixedName()}Key, new Date(createFrom[${this._name}._${prop.getMixedName()}Key]))`
   }
 
   // Generates code to remove create-only fields from payload

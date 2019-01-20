@@ -9,6 +9,7 @@
         "STATE_OBJECT": "StateObject.mu",
         "ORIM_OBJECT": "OrimObject.mu",
         "MOCHA": "MochaTest.mu",
+        "SERVICES": "OrimServices.mu",
         "TESTDATA": "TestData.mu"
     }
 }

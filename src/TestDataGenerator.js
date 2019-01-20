@@ -11,7 +11,7 @@ export default class TestDataGenerator extends BaseSingleGenerator {
 
   // Construct the test data object for the given model
   getTestData(model) {
-    let result = `${model._name}s: {\n`
+    let result = `${model._name}s: [{\n`
     const propertyList = model.getAllProperties()
     let propCount = 0
     for (var propName in propertyList) {
@@ -21,7 +21,7 @@ export default class TestDataGenerator extends BaseSingleGenerator {
         : result += `    ${prop.name}: ${prop.exampleValue()}`
       propCount++
     }
-    result += '\n  },'
+    result += '\n  }],'
     return result
   }
 

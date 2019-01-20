@@ -1,21 +1,6 @@
 import { Map } from 'immutable'
-import { CURRENT_ID, OBJECT_MAP } from '../src/state/reduxObject/BaseService'
-import { User, USER } from '../src/state/user'
-import { VERB_HYDRATE, VERB_LOGIN, FETCH_SUCCESS } from '../src/state/reduxObject/fetchStatusActions'
+import { defaultVerbs, status } from 'redux-immutable-model'
 import baseApp from '../src/state/baseApp'
-
-export const loginState = Map({
-  [User.STATE_PATH]: Map({
-    [OBJECT_MAP]: Map({
-      [User.NEW_ID]: new User({
-        [User.ID]: User.NEW_ID,
-        [User.USER_NAME]: 'testing',
-        [User.PASSWORD]: 'testme0!'
-      })
-    }),
-    [CURRENT_ID]: User.NEW_ID
-  })
-})
 
 export const defaultLoginData = {
   {{#each testData }}
@@ -24,15 +9,15 @@ export const defaultLoginData = {
 }
 
 export const defaultState = baseApp(undefined, {
-  type: USER,
-  verb: VERB_LOGIN,
-  status: FETCH_SUCCESS,
+  type: 'async',
+  verb: defaultVerbs.LOGIN,
+  status: status.SUCCESS,
   receivedData: defaultLoginData
 })
 
 export const resetState = () => baseApp(undefined, {
-  type: USER,
-  verb: VERB_HYDRATE,
-  status: FETCH_SUCCESS,
+  type: 'async',
+  verb: defaultVerbs.HYDRATE,
+  status: status.SUCCESS,
   receivedData: defaultLoginData
 })

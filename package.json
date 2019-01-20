@@ -26,7 +26,7 @@
   "homepage": "https://github.com/wittlesouth/openapi-rim-app#readme",
   "dependencies": {
     "js-yaml": "^3.12.1",
-    "redux-immutable-model": "^0.3.3"
+    "redux-immutable-model": "^0.3.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -41,7 +41,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "nock": "^10.0.6",
-    "nyc": "^13.1.0"
+    "nyc": "^13.1.0",
+    "redux-immutable": "^4.0.0"
   },
   "openapi-rim-app": {
     "spec": "./spec/RoadmapsFTW_Schemas.yaml"

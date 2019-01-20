@@ -1,4 +1,4 @@
-/* Orim{{ name }}.js - generated state object for {{ name }} model objects */
+/* {{ name }}.js - generated state object for {{ modelName }} model objects */
 /* DO NOT EDIT THIS GENERATED FILE - Edit the subclass state file instead! */
 
 import { Map } from 'immutable'
@@ -9,24 +9,25 @@ import { BaseRIMObject } from 'redux-immutable-model'
 {{{ this }}}
 {{/each}}
 
-export class Orim{{ name }} extends BaseRIMObject {
+export default class {{ name }} extends BaseRIMObject {
 
   // Define constants that correspond to field names in API data
   {{#each varnames }}
   {{{ this }}}
   {{/each}}
 
-  static _ApiBasePath = '/{{ name }}s'
+  static _ApiBasePath = '/{{ modelName }}s'
+  static _NewID = 'New{{ modelName }}'
 
   constructor (createFrom, dirtyVal = false, fetchingVal = false, newVal = false) {
     super(createFrom, dirtyVal, fetchingVal, newVal)
 
-    if (this._data === null && !paramObj) {
+    if (!createFrom) {
       // No param object and no data - create empty initialized object
       {{#each defvals }}
       {{{ this }}}
       {{/each}}
-    } else if (paramObj) {
+    } else {
       // This is where we do any transformations that are needed (e.g. dates)
       {{#each transforms }}
       {{{ this }}}

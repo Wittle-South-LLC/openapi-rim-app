@@ -20,6 +20,16 @@ export default class ModelObject {
     if (this._updateSchema) result = { ...result, ...this._updateSchema.getProperties() }
     return result
   }
+  getIdProperty() {
+    let result = undefined
+    const myProperties = this.getAllProperties()
+    for (var propName in myProperties) {
+      if (myProperties[propName].isId) {
+        result = myProperties[propName]
+      }
+    }
+    return result
+  }
   getCamelName() { return toCamelCase(this._name) }
   getIdentitySchema() { return this._identitySchema }
   getMixedName() { return toMixedCase(this._name) }

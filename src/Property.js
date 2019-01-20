@@ -46,7 +46,7 @@ export default class Property {
     if (!this.example) return undefined
     switch (this.type) {
       case 'string': return "'" + this.example + "'"
-      case 'object': return "'" + JSON.stringify(this.example) + "'"
+      case 'object': return JSON.stringify(this.example)
       default: return this.example
     }
   }
@@ -67,7 +67,7 @@ export default class Property {
 
   // Returns true if this property needs type transformation when reading server response
   needsInputTransform () {
-    return this.type === 'string' && this.stringFormat === 'date'
+    return this.type === 'string' && this.format === 'date'
   }
 
   // Returns true if this property needs type transformation when preparing a request

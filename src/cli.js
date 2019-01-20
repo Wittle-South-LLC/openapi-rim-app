@@ -6,6 +6,7 @@ var config = require('../src/config.json')      // Read configuration as an obje
 import Schema from './Schema'
 import ModelObject from './ModelObject'
 import OrimObjectGenerator from './OrimObjectGenerator'
+import OrimServiceGenerator from './OrimServiceGenerator'
 import StateObjectGenerator from './StateObjectGenerator'
 import RimTestGenerator from './RimTestGenerator'
 import TestDataGenerator from './TestDataGenerator'
@@ -39,6 +40,8 @@ for (var schema in doc.components.schemas) {
 // Generate singles
 const testDataGen = new TestDataGenerator(config, modelObjects)
 testDataGen.render()
+const serviceGen = new OrimServiceGenerator(config, modelObjects)
+serviceGen.render()
 
 for (var objectName in modelObjects) {
   console.log(`Handling ${objectName}: `)

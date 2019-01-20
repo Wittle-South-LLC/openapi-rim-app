@@ -11,10 +11,11 @@ import Handlebars from 'handlebars'    // Template language for code generation
 var fs = require('fs')                 // Read/write files
 
 export default class BaseSingleGenerator {
-  constructor(modelObjects, templateFileName, outputFileName) {
+  constructor(modelObjects, templateFileName, outputFileName, overwrite = true) {
     this._modelObjects = modelObjects          // A redux-immutable-object class
     this._templateFileName = templateFileName  // File name containing the template
     this._outputFileName = outputFileName      // File name for the generator output
+    this._overwrite = overwrite                // Flag if existing files should be overwritten
   }
 
   // This is a base method intended to be overridden in subclasses; it should return
@@ -48,11 +49,14 @@ export default class BaseSingleGenerator {
   // Implements the default behavior of reading the template file, creating the
   // context, and rendering the resulting source file
   render() {
-    const template = Handlebars.compile(fs.readFileSync(this._templateFileName, 'utf8'))
-    const myContext = this.getInitialContext()
-    this.populateContext(myContext)
-    this.finalizeContext(myContext)
-    const result = template(myContext)
-    fs.writeFileSync(this._outputFileName, result)
+    // Only render if overwrites are OK or target file does not exist
+    if (this._overwrite || !fs.existsSync(this._outputFileName)) {
+      const template = Handlebars.compile(fs.readFileSync(this._templateFileName, 'utf8'))
+      const myContext = this.getInitialContext()
+      this.populateContext(myContext)
+      this.finalizeContext(myContext)
+      const result = template(myContext)
+      fs.writeFileSync(this._outputFileName, result)
+    }
   }
 }
