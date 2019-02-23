@@ -5,7 +5,7 @@
         "TEST_PATH": "./app/tests"
     },
     "TEMPLATES": {
-        "PATH": "./src/templates",
+        "PATH": "./templates",
         "STATE_OBJECT": "StateObject.mu",
         "ORIM_OBJECT": "OrimObject.mu",
         "MOCHA": "MochaTest.mu",

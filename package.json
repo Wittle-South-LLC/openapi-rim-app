@@ -12,8 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/wittlesouth/openapi-rim-app.git"
+    "url": "git+ssh://git@github.com/Wittle-South-LLC/openapi-rim-app.git"
   },
+  "files": [
+    "templates/",
+    "dist/"
+  ],
   "keywords": [
     "OpenAPI",
     "Redux",
@@ -22,9 +26,9 @@
   "author": "Eric Wittle",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wittlesouth/openapi-rim-app/issues"
+    "url": "https://github.com/Wittle-South-LLC/openapi-rim-app/issues"
   },
-  "homepage": "https://github.com/wittlesouth/openapi-rim-app#readme",
+  "homepage": "https://github.com/Wittle-South-LLC/openapi-rim-app#readme",
   "dependencies": {
     "js-yaml": "^3.12.1",
     "redux-immutable-model": "^0.4.0"
