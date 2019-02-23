@@ -1,8 +1,10 @@
 /* Schema.js - Class representing an OpenAPI 3.0 schema object */
-
 import Property from "./Property";
 
-export default class Schema {
+// Singleton pattern for named collection of defined schemas
+export const schemaService = {}
+
+export class Schema {
   constructor(name, attributes) {
     this.name = name
     this._attributes = attributes
@@ -32,6 +34,8 @@ export default class Schema {
         this._properties[property] = new Property(name, property, propertiesYaml[property])
       }
     }
+    // Store this schema in the schema service
+    schemaService[this.name] = this
   }
 
   // Return the dictionary of properties for this schema

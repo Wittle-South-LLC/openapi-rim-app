@@ -46,7 +46,7 @@
     "redux-immutable": "^4.0.0"
   },
   "openapi-rim-app": {
-    "spec": "./spec/RoadmapsFTW_Schemas.yaml"
+    "spec": "./spec/muam.yaml"
   },
   "babel": {
     "presets": [

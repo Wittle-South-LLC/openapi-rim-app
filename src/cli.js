@@ -3,8 +3,8 @@ var fs = require('fs')                          // Necessary to read file from O
 var yaml = require('js-yaml')                   // Necessary to parse spec YAML
 var packageJson = require('../package.json')    // Obtain configuration from package.json
 var config = require('../src/config.json')      // Read configuration as an object
-import Schema from './Schema'
-import ModelObject from './ModelObject'
+import { Schema, schemaService } from './Schema'
+import { ModelObject, modelObjectService } from './ModelObject'
 import OrimObjectGenerator from './OrimObjectGenerator'
 import OrimServiceGenerator from './OrimServiceGenerator'
 import StateObjectGenerator from './StateObjectGenerator'
@@ -15,37 +15,39 @@ const filename = packageJson['openapi-rim-app']['spec']
 console.log(`Filename: ${filename}`)
 var doc = yaml.safeLoad(fs.readFileSync(filename, 'utf8'))
 console.log(`Title: ${doc.info.title}`)
-var mySchemas = {}
-var modelObjects = {}
 for (var schema in doc.components.schemas) {
-  mySchemas[schema] = new Schema(schema, doc.components.schemas[schema])
-  if (mySchemas[schema].identityObject) {
-    let objectName = mySchemas[schema].identityObject
-    if (!modelObjects[objectName])
-      modelObjects[objectName] = new ModelObject(objectName, mySchemas[schema].description)
-    modelObjects[objectName].setIdentitySchema(mySchemas[schema])
+  var mySchema = new Schema(schema, doc.components.schemas[schema])
+  if (mySchema.identityObject) {
+    let objectName = mySchema.identityObject
+    const myModelObject = modelObjectService[objectName] ? modelObjectService[objectName] : new ModelObject(objectName, mySchema.description)
+    console.log(`Setting identity schema for mo ${objectName} to ${mySchema.name}`)
+    myModelObject.setIdentitySchema(mySchema)
   }
-  if (mySchemas[schema].updateObject) {
-    let objectName = mySchemas[schema].updateObject
-    if (!modelObjects[objectName])
-      modelObjects[objectName] = new ModelObject(objectName, mySchemas[schema].description)
-    modelObjects[objectName].setUpdateSchema(mySchemas[schema])
+  if (mySchema.updateObject) {
+    let objectName = mySchema.updateObject
+    const myModelObject = modelObjectService[objectName] ? modelObjectService[objectName] : new ModelObject(objectName, mySchema.description)
+    console.log(`Setting update schema for mo ${objectName} to ${mySchema.name}`)
+    myModelObject.setUpdateSchema(mySchema)
   }
 }
 
+for (var objectName in modelObjectService) {
+  console.log(`${objectName} details: \n`, modelObjectService[objectName])
+}
+
 // Generate singles
-const testDataGen = new TestDataGenerator(config, modelObjects)
+const testDataGen = new TestDataGenerator(config, modelObjectService)
 testDataGen.render()
-const serviceGen = new OrimServiceGenerator(config, modelObjects)
+const serviceGen = new OrimServiceGenerator(config, modelObjectService)
 serviceGen.render()
 
-for (var objectName in modelObjects) {
+for (var objectName in modelObjectService) {
   console.log(`Handling ${objectName}: `)
-  const stateGenerator = new StateObjectGenerator(config, modelObjects[objectName])
+  const stateGenerator = new StateObjectGenerator(config, modelObjectService[objectName])
   stateGenerator.render()
-  const generator = new OrimObjectGenerator(config, modelObjects[objectName])
+  const generator = new OrimObjectGenerator(config, modelObjectService[objectName])
   generator.render()
-  const testGenerator = new RimTestGenerator(config, modelObjects[objectName])
+  const testGenerator = new RimTestGenerator(config, modelObjectService[objectName])
   testGenerator.render()
 }
 // console.log('Schemas: ', JSON.stringify(mySchemas, null, 2))

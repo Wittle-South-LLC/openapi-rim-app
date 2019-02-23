@@ -6,18 +6,36 @@
    all of the properties of a model object for code generation */
 
 import { toCamelCase, toMixedCase, toSnakeCase } from './util'
+import { schemaService } from './Schema'
 
-export default class ModelObject {
+export const modelObjectService = {}
+
+export class ModelObject {
   constructor(name, description) {
     this._name = name
     this._description = description
     this._identitySchema = undefined
     this._updateSchema = undefined
+    modelObjectService[this._name] = this
   }
   getAllProperties() {
     let result = {}
-    if (this._updateSchema) result = { ...result, ...this._updateSchema.getProperties() }
-    if (this._identitySchema) result = { ...result, ...this._identitySchema.getProperties() }
+    if (this._updateSchema) {
+      result = { ...result, ...this._updateSchema.getProperties() }
+      for (var i = 0; i < this._updateSchema._references.length; i++ ) {
+        const referenceSchemaName = this._updateSchema._references[i].slice(21)
+        console.log(`getAllProperties handling reference: ${referenceSchemaName}`)
+        result = { ...result, ...schemaService[referenceSchemaName].getProperties() }
+      }
+    }
+    if (this._identitySchema) {
+      result = { ...result, ...this._identitySchema.getProperties() }
+      for (var i = 0; i < this._identitySchema._references.length; i++ ) {
+        const referenceSchemaName = this._identitySchema._references[i].slice(21)
+        console.log(`getAllProperties handling reference: ${referenceSchemaName}`)
+        result = { ...result, ...schemaService[referenceSchemaName].getProperties() }
+      }
+    }
     return result
   }
   getIdProperty() {
