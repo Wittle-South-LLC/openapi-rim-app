@@ -31,10 +31,6 @@ for (var schema in doc.components.schemas) {
   }
 }
 
-for (var objectName in modelObjectService) {
-  console.log(`${objectName} details: \n`, modelObjectService[objectName])
-}
-
 // Generate singles
 const testDataGen = new TestDataGenerator(config, modelObjectService)
 testDataGen.render()

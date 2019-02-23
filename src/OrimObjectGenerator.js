@@ -88,7 +88,8 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
 
   // Generates code to create a regular express test for any strings with pattern specified
   getPatternDef(prop) {
-    return `const ${prop.name}Test = ${prop.pattern}`
+    // Note that leading and trailing / should not be required, see Connexion issue #871
+    return `const ${prop.name}Test = /${prop.pattern}/`
   }
 
   getInitialContext() {

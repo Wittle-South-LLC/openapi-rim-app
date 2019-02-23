@@ -24,7 +24,6 @@ export class ModelObject {
       result = { ...result, ...this._updateSchema.getProperties() }
       for (var i = 0; i < this._updateSchema._references.length; i++ ) {
         const referenceSchemaName = this._updateSchema._references[i].slice(21)
-        console.log(`getAllProperties handling reference: ${referenceSchemaName}`)
         result = { ...result, ...schemaService[referenceSchemaName].getProperties() }
       }
     }
@@ -32,7 +31,6 @@ export class ModelObject {
       result = { ...result, ...this._identitySchema.getProperties() }
       for (var i = 0; i < this._identitySchema._references.length; i++ ) {
         const referenceSchemaName = this._identitySchema._references[i].slice(21)
-        console.log(`getAllProperties handling reference: ${referenceSchemaName}`)
         result = { ...result, ...schemaService[referenceSchemaName].getProperties() }
       }
     }
