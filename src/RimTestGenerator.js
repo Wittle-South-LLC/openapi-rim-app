@@ -69,7 +69,8 @@ export default class RimTestGenerator extends BaseModelGenerator {
 
   getInitialContext() {
     const result = super.getInitialContext()
-    result['exampleId'] = this._modelObject.getIdProperty().exampleValue()
+    if (this._modelObject.getIdProperty())
+      result['exampleId'] = this._modelObject.getIdProperty().exampleValue()
     result['getCreatePayload'] = this.getCreatePayloadTest()
     result['getUpdatePayload'] = this.getUpdatePayloadTest()
     this._sections.forEach((key) => {

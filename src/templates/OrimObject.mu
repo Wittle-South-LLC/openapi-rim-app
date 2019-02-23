@@ -24,8 +24,7 @@ export default class {{ name }} extends BaseRIMObject {
 
     if (!createFrom) {
       // No param object and no data - create empty initialized object
-      {{#each defvals }}
-      {{{ this }}}
+      this._data = Map({ {{#each defvals }}{{{ this }}}
       {{/each}}
     } else {
       // This is where we do any transformations that are needed (e.g. dates)

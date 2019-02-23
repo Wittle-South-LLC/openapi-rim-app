@@ -36,6 +36,7 @@ export default class Property {
       case 'string': return this.format === 'date' ? "new Date(0)" : "''"
       case 'object': return 'Map({})'
       case 'number': return '0'
+      case 'array': return '[]'
       default: return 'undefined'
     }
   }

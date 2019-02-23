@@ -37,7 +37,8 @@ export default class BaseModelGenerator {
     const propertyList = this._modelObject.getAllProperties()
     // We want to process the ID property first
     const idProperty = this._modelObject.getIdProperty()
-    this.processProperty(context, idProperty)
+    if (idProperty)
+      this.processProperty(context, idProperty)
     for (var propName in propertyList) {
       // If this is the ID property, skip because we already processed it
       if (propertyList[propName].isId) continue

@@ -19,7 +19,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
   // Generates statement to set default value for the property for new instances
   getDefaultValue(prop) {
     if (prop.isId)
-      return `this._data = Map({[${this._name}._IdentityKey]: ${this._name}._NewID,`
+      return `[${this._name}._IdentityKey]: ${this._name}._NewID,`
     else
       return `             [${this._name}._${prop.getMixedName()}Key]: ${prop.defaultValue()},`
   }
