@@ -1,6 +1,6 @@
 {
   "name": "openapi-rim-app",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Generates OpenAPI redux-immutable-model application",
   "main": "dist/index.js",
   "scripts": {
@@ -30,7 +30,9 @@
   },
   "homepage": "https://github.com/Wittle-South-LLC/openapi-rim-app#readme",
   "dependencies": {
-    "js-yaml": "^3.12.1",
+    "js-yaml": "^3.12.1"
+  },
+  "peerDependencies": {
     "redux-immutable-model": "^0.4.1"
   },
   "devDependencies": {
