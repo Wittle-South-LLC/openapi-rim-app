@@ -1,6 +1,6 @@
 {
   "name": "openapi-rim-app",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generates OpenAPI redux-immutable-model application",
   "main": "dist/index.js",
   "scripts": {
@@ -31,22 +31,22 @@
   "homepage": "https://github.com/Wittle-South-LLC/openapi-rim-app#readme",
   "dependencies": {
     "js-yaml": "^3.12.1",
-    "redux-immutable-model": "^0.4.0"
+    "redux-immutable-model": "^0.4.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.3.3",
     "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.2.3",
-    "@babel/preset-env": "^7.2.3",
-    "babel-plugin-istanbul": "^5.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
     "deep-diff": "^1.0.2",
-    "handlebars": "^4.0.12",
+    "handlebars": "^4.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "nock": "^10.0.6",
-    "nyc": "^13.1.0",
+    "nyc": "^13.3.0",
     "redux-immutable": "^4.0.0"
   },
   "openapi-rim-app": {
