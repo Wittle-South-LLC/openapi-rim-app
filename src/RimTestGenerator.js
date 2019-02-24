@@ -4,8 +4,8 @@ import BaseModelGenerator from './BaseModelGenerator'
 export default class RimTestGenerator extends BaseModelGenerator {
   constructor(config, modelObject) {
     super (modelObject,
-      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['MOCHA'],
-      config['APP']['TEST_PATH'] + '/test-state-' + modelObject._name + '.js')
+      config['paths']['templates'] + '/' + config['templates']['tests'],
+      config['paths']['tests'] + '/test-state-' + modelObject._name + '.js')
     this._sections = ['getterTests', 'validTests', 'invalidTests']
   }
 

@@ -4,8 +4,8 @@ import BaseSingleGenerator from './BaseSingleGenerator'
 export default class TestDataGenerator extends BaseSingleGenerator {
   constructor(config, modelObjects) {
     super (modelObjects,
-      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['TESTDATA'],
-      config['APP']['TEST_PATH'] + '/TestData.js')
+      config['paths']['templates'] + '/' + config['templates']['testData'],
+      config['paths']['tests'] + '/TestData.js')
     this._sections = ['testData']
   }
 

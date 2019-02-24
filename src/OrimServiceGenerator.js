@@ -4,8 +4,8 @@ import BaseSingleGenerator from './BaseSingleGenerator'
 export default class OrimServiceGenerator extends BaseSingleGenerator {
   constructor(config, modelObjects) {
     super (modelObjects,
-      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['SERVICES'],
-      config['APP']['STATE_OBJECT_PATH'] + '/OrimServices.js',
+      config['paths']['templates'] + '/' + config['templates']['services'],
+      config['paths']['stateObjects'] + '/OrimServices.js',
       false)
     this._sections = ['imports', 'exports', 'addReducers']
   }

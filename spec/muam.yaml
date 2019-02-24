@@ -597,6 +597,7 @@ components:
           properties:
             users:
               type: array
+              x-wsag-linked-objects: Membership
               items:
                 $ref: '#/components/schemas/UserList'
     GroupList:
@@ -647,6 +648,7 @@ components:
           maxLength: 80
           example: app-users
     MembershipCreate:
+      x-wsag-create: Membership
       type: object
       description: Group membership
       required:
@@ -771,6 +773,7 @@ components:
         - type: object
           properties:
             groups:
+              x-wsag-linked-object: Membership
               type: array
               items:
                 $ref: '#/components/schemas/GroupList'

@@ -4,8 +4,8 @@ import BaseModelGenerator from './BaseModelGenerator'
 export default class OrimObjectGenerator extends BaseModelGenerator {
   constructor(config, modelObject) {
     super (modelObject,
-      config['TEMPLATES']['PATH'] + '/' + config['TEMPLATES']['ORIM_OBJECT'],
-      config['APP']['ORIM_OBJECT_PATH'] + '/Orim' + modelObject._name + '.js')
+      config['paths']['templates'] + '/' + config['templates']['orimObjects'],
+      config['paths']['stateObjects'] + '/orim/Orim' + modelObject._name + '.js')
     this._sections = ['varnames', 'defvals', 'getters', 'transforms', 'validators',
                       'payloads', 'valids', 'createOnlys', 'patterns']
     this._name = 'Orim' + modelObject._name
