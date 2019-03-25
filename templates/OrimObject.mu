@@ -2,7 +2,7 @@
 /* DO NOT EDIT THIS GENERATED FILE - Edit the subclass state file instead! */
 
 import { Map } from 'immutable'
-import { BaseRIMObject } from 'redux-immutable-model'
+import { defaultVerbs, BaseRIMObject } from 'redux-immutable-model'
 
 // Define any constants required for pattern validations
 {{#each patterns}}
@@ -16,7 +16,6 @@ export default class {{ name }} extends BaseRIMObject {
   {{{ this }}}
   {{/each}}
 
-  static _ApiBasePath = '/{{ modelName }}s'
   static _NewID = 'New{{ modelName }}'
 
   constructor (createFrom, dirtyVal, fetchingVal, newVal) {
@@ -44,21 +43,21 @@ export default class {{ name }} extends BaseRIMObject {
   {{{ this }}}
   {{/each}}
 
-  getCreatePayload () {
+  getFetchPayload (verb) {
     const payload = {
-    {{#each payloads }}
-      {{{ this }}}
-    {{/each}}
+      {{#each payloads }}
+        {{{ this }}}
+      {{/each}}
     }
-    return payload
-  }
-
-  getUpdatePayload () {
-    const payload = this.getCreatePayload()
-    {{#each createOnlys }}
-    {{{ this }}}
-    {{/each}}
-    return payload
+    if (verb === defaultVerbs.SAVE_UPDATE) {
+      return payload
+    } else if (verb === defaultVerbs.SAVE_NEW) {
+      {{#each createOnlys }}
+      {{{ this }}}
+      {{/each}}
+      return payload
+    }
+    return {}
   }
 
   isValid () {
