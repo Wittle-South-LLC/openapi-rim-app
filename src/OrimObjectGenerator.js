@@ -54,7 +54,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
     } else {
       result += resultConditions.join(" &&\n          ")
       if (resultConditions.length > 0)
-        result += ` ||\n          this.${getter} === undefined`
+        result= `this.${getter} == null || \n          (` + result + ')'
     }
     return `is${prop.getMixedName()}Valid () { return ${result} }`
   }

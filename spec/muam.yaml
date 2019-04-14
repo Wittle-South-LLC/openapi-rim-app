@@ -774,6 +774,7 @@ components:
           properties:
             groups:
               x-wsag-linked-object: Membership
+              nullable: true
               type: array
               items:
                 $ref: '#/components/schemas/GroupList'
@@ -833,5 +834,6 @@ components:
               example: 'testing123'
             groups:
               type: array
+              nullable: true
               items:
                 $ref: '#/components/schemas/GroupList'
