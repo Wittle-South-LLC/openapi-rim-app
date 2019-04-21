@@ -33,6 +33,7 @@
     "js-yaml": "^3.12.1"
   },
   "peerDependencies": {
+    "immutable": "^4.0.0-rc.12",
     "redux-immutable-model": "^0.4.1"
   },
   "devDependencies": {

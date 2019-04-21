@@ -835,5 +835,6 @@ components:
             groups:
               type: array
               nullable: true
+              x-wsag-linked-object: Membership
               items:
                 $ref: '#/components/schemas/GroupList'

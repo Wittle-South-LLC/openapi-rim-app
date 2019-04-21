@@ -9,8 +9,10 @@ export default class Property {
     this.type = attributes.type
     this.baseObject = 'x-wsag-base-object' in attributes ? attributes['x-wsag-base-object'] : false
     this.createOnly = 'x-wsag-create-only' in attributes ? attributes['x-wsag-create-only'] : false
+    this.linkedObject = 'x-wsag-linked-object' in attributes ? attributes['x-wsag-linked-object'] : undefined
     this.isId = 'x-wsag-model-id' in attributes ? attributes['x-wsag-model-id'] : false
     this.description = attributes['description']
+    this.default = 'default' in attributes ? attributes.default : undefined
     this.enum = attributes['enum']
     this.example = attributes['example']
     this.exclusiveMaximum = 'exclusiveMaximum' in attributes ? attributes.exclusiveMaximum : false
@@ -32,6 +34,7 @@ export default class Property {
 
   // Provides initialization value for fields in new object
   defaultValue () {
+    if (this.default !== undefined) return this.default
     switch (this.type) {
       case 'string': return this.format === 'date' ? "new Date(0)" : "''"
       case 'object': return 'Map({})'
