@@ -110,7 +110,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
         context['validators'].push(this.getValidator(prop))
         context['valids'].push(this.getValids(prop))
     }
-    if (!prop.readOnly) context['payloads'].push(this.getPayloadElement(prop))
+    if (!prop.readOnly && !prop.linkedObject) context['payloads'].push(this.getPayloadElement(prop))
     if (prop.createOnly) context['createOnlys'].push(this.getCreateOnly(prop))
     if (prop.pattern) context['patterns'].push(this.getPatternDef(prop))
     return context
