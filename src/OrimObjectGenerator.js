@@ -64,10 +64,19 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
     let transform = ""
     if (prop.type === 'object') transform = ".toJS()"
     else if (prop.type === 'string' && prop.format === 'date') transform = ".toJSON()"
+    let convertPrefix = ""
+    let convertSuffix = ""
+    if (prop.type === 'integer') {
+      convertPrefix = 'parseInt('
+      convertSuffix = ')'
+    } else if (prop.type === 'number') {
+      convertPrefix = 'parseFloat('
+      convertSuffix = ')'
+    }
     if (!prop.nullable) {
-      return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}()${transform},`
+      return `[${this._name}._${prop.getMixedName()}Key]: ${convertPrefix}this.get${prop.getMixedName()}()${transform}${convertSuffix},`
     } else {
-      return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}() ? this.get${prop.getMixedName()}()${transform} : null,`
+      return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}() ? ${convertPrefix}this.get${prop.getMixedName()}()${transform}${convertSuffix} : null,`
     }
   }
 
