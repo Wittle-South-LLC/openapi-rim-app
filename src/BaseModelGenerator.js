@@ -7,6 +7,7 @@
    context created from the model object by the specific generator subclass */
 
 import Handlebars from 'handlebars'    // Template language for code generation
+import { ensureDirectoryExists } from './util'  // Creates directories if needed
 var fs = require('fs')                 // Read/write files
 
 export default class BaseModelGenerator {
@@ -64,6 +65,7 @@ export default class BaseModelGenerator {
       this.populateContext(myContext)
       this.finalizeContext(myContext)
       const result = template(myContext)
+      ensureDirectoryExists(this._outputFileName)
       fs.writeFileSync(this._outputFileName, result)
     }
   }
