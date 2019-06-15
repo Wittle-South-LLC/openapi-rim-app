@@ -4,7 +4,7 @@ import { BaseRIMService, Configuration } from 'redux-immutable-model'
 {{{ this }}}
 {{/each}}
 
-const config = new Configuration()
+export const config = new Configuration()
 
 {{#each exports }}
 {{{ this }}}

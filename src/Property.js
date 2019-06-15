@@ -31,6 +31,10 @@ export default class Property {
   // ID code generation is special cased
 //  getCamelName () { return this.isId ? "id" : toCamelCase(this.name) }
   getMixedName () { return this.isId ? "Identity": toMixedCase(this.name) }
+  getIntlName () {
+    var baseName = toMixedCase(this.name)
+    return baseName.charAt(0).toLowerCase() + baseName.slice(1)
+  }
 //  getUpperName () { return this.isId ? "ID" : toSnakeCase(this.name).toUpperCase() }
 
   // Provides initialization value for fields in new object

@@ -10,11 +10,21 @@ export default class OrimServiceGenerator extends BaseSingleGenerator {
     this._sections = ['imports', 'exports', 'addReducers']
   }
   getImport(model) {
-    return `import ${model.getMixedName()} from './${model.getMixedName()}'`
+    console.log(`----> model._name = ${model._name}`)
+    if (model._name != 'User') {
+      return `import ${model.getMixedName()} from './${model.getMixedName()}'`
+    } else {
+      return `import CustomUserService from './CustomUserService'`
+    }
   }
 
   getExport(model) {
-    return `export const ${model.getMixedName()}Service = new BaseRIMService(${model.getMixedName()}, config)`
+    console.log(`---2> model._name = ${model._name}`)
+    if (model._name != 'User') {
+      return `export const ${model.getMixedName()}Service = new BaseRIMService(${model.getMixedName()}, config)`
+    } else {
+      return `export const UserService = new CustomUserService(config)`
+    }
   }
 
   getAddReducer(model) {
