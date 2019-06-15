@@ -12,9 +12,9 @@ export default class StateObjectGenerator extends BaseModelGenerator {
 
   getFieldIntlMessages(prop) {
     return [
-      `${prop.getIntlName()}Label: { id: '${prop.schemaName}.${prop.getIntlName()}', defaultMessage: '${prop.getMixedName()}' },`,
-      `${prop.getIntlName()}Placeholder: { id: '${prop.schemaName}.${prop.getIntlName()}', defaultMessage: '${prop.getMixedName()}...' },`,
-      `${prop.getIntlName()}Invalid: { id: '${prop.schemaName}.${prop.getIntlName()}', defaultMessage: '${prop.getMixedName()} is invalid' },`
+      `${prop.getIntlName()}Label: { id: '${prop.schemaName}.${prop.getIntlName()}Label', defaultMessage: '${prop.getMixedName()}' },`,
+      `${prop.getIntlName()}Placeholder: { id: '${prop.schemaName}.${prop.getIntlName()}Placeholder', defaultMessage: '${prop.getMixedName()}...' },`,
+      `${prop.getIntlName()}Invalid: { id: '${prop.schemaName}.${prop.getIntlName()}Invalid', defaultMessage: '${prop.getMixedName()} is invalid' },`
     ]    
   }
 
