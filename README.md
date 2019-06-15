@@ -25,8 +25,8 @@ Data model objects created by this package have the following characteristics:
 * They have a known inheritance hierarchy:
   * immutable-inherit
     * BaseRimObject
-      * Orim<ModelObjectName>
-        * <ModelObject>
+      * Orim\<ModelObjectName>
+        * \<ModelObject>
 
 The immutable-inherit object provides a minimum set of key immutable attributes,
 so that it and its subclasses can be contained in Immutable containers and
@@ -59,9 +59,31 @@ Some key methods of a data model service include:
 * CreateNew - Return a new, initialized data model object
 * SaveDelete - Delete a data model object
 
+OpenAPI Attributes
+------------------
+The following attributes are used by OpenAPI RIM App to determine what the source
+schema is.
+
+- Schema Tags
+    - **x-orim-create** - Identifies schema names for object creation. A synonym
+    is **x-smoacks-create**.
+    - **x-orim-test-data** - Flags whether to emit test data for this object. A
+    synonym is **x-smoacks-test-data**
+    - **x-orim-update** - Flags whether this schema should be used for object
+    updates.
+    - **x-orim-extended** - Not sure what this does either
+- Property Tags
+    - **x-orim-model-id** - Identifies the identifier(s) in a model object. A
+    synonym is **x-smoacks-model-id**.
+    - **x-orim-linked-object** - Not sure I recall what this does
+
 Usage
 -----
 
 To use, edit the config.json file to point to the OpenAPI 3.0 specification 
 document in your source tree, then run `npm run gen`.
 
+Version History
+---------------
+* 0.1.5 - Added support for SMOACKS synonyms
+* 0.1.4 - Added ability to create source directories if they don't exist

@@ -9,9 +9,12 @@ export class Schema {
     this.name = name
     this._attributes = attributes
     this.description = attributes['description']
-    this.identityObject = attributes['x-wsag-create']
-    this.updateObject = attributes['x-wsag-update']
-    this.emitTests = attributes['x-wsag-testme']
+    this.identityObject = attributes['x-orim-create'] ? attributes['x-orim-create'] : attributes['x-smoacks-create']
+    this.smoacksObject = attributes['x-smoacks-object']
+    this.smoacksApiVerbParam = attributes['x-smoacks-api-verb-param']
+    this.smoacksApiVerbResp = attributes['x-smoacks-api-verb-resp']
+    this.updateObject = attributes['x-orim-update']
+    this.emitTests = attributes['x-orim-testme']
     this._properties = {}
     this._references = []
     var propertiesYaml = undefined

@@ -7,10 +7,11 @@ export default class Property {
     this.name = name
     this._attributes = attributes
     this.type = attributes.type
-    this.baseObject = 'x-wsag-base-object' in attributes ? attributes['x-wsag-base-object'] : false
-    this.createOnly = 'x-wsag-create-only' in attributes ? attributes['x-wsag-create-only'] : false
-    this.linkedObject = 'x-wsag-linked-object' in attributes ? attributes['x-wsag-linked-object'] : undefined
-    this.isId = 'x-wsag-model-id' in attributes ? attributes['x-wsag-model-id'] : false
+    this.baseObject = 'x-orim-base-object' in attributes ? attributes['x-orim-base-object'] : false
+    this.createOnly = 'x-orim-create-only' in attributes ? attributes['x-orim-create-only'] : false
+    this.linkedObject = 'x-orim-linked-object' in attributes ? attributes['x-orim-linked-object'] : undefined
+    this.isId = 'x-orim-model-id' in attributes ? attributes['x-orim-model-id'] : false
+    this.isId = 'x-smoacks-model-id' in attributes ? attributes['x-smoacks-model-id'] : this.isId
     this.description = attributes['description']
     this.default = 'default' in attributes ? attributes.default : undefined
     this.enum = attributes['enum']
