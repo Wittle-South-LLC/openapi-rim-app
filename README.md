@@ -85,5 +85,6 @@ document in your source tree, then run `npm run gen`.
 
 Version History
 ---------------
+* 0.1.6 - Generates app structure
 * 0.1.5 - Added support for SMOACKS synonyms
 * 0.1.4 - Added ability to create source directories if they don't exist

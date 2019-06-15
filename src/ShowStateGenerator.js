@@ -10,7 +10,7 @@ export default class ShowStateGenerator extends BaseSingleGenerator {
     this._sections = ['stateObjects']
   }
   getStateObject(model) {
-    return `stateElements.push({key: '${model.getMixedName()}', label: '${model.getMixedName()}'})`
+    return `stateElements.push({key: '${model.getMixedName()}s', label: '${model.getMixedName()}s'})`
   }
 
   // Initializes context with an empty array for each section

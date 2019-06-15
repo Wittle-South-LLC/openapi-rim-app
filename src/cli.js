@@ -10,6 +10,7 @@ import clientStateGenerator from './clientStateGenerator'
 import CustomUserServiceGenerator from './CustomUserServiceGenerator'
 import HomeGenerator from './HomeGenerator.js'
 import AppGenerator from './AppGenerator.js'
+import jwtGenerator from './jwtGenerator.js'
 import OrimObjectGenerator from './OrimObjectGenerator'
 import OrimServiceGenerator from './OrimServiceGenerator'
 import StateObjectGenerator from './StateObjectGenerator'
@@ -81,6 +82,7 @@ if (!config['templates']['Home']) config['templates']['Home'] = 'Home.mu'
 if (!config['templates']['App']) config['templates']['App'] = 'App.mu'
 if (!config['templates']['TranslationRunner']) config['templates']['TranslationRunner'] = 'TranslationRunner.mu'
 if (!config['templates']['CustomUserService']) config['templates']['CustomUserService'] = 'CustomUserService.mu'
+if (!config['templates']['jwt']) config['templates']['jwt'] = 'jwt.mu'
 
 // Process the spec to identify schemas
 for (var schema in doc.components.schemas) {
@@ -130,5 +132,7 @@ const TranslationRunnerGen = new TranslationRunnerGenerator(config, modelObjectS
 TranslationRunnerGen.render()
 const CustomUserServiceGen = new CustomUserServiceGenerator(config, modelObjectService)
 CustomUserServiceGen.render()
+const jwtGen = new jwtGenerator(config, modelObjectService)
+jwtGen.render()
 
 console.log('openapi-rim-app source generation complete')

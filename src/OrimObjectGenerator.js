@@ -104,6 +104,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
   getInitialContext() {
     const result = super.getInitialContext()
     result['desc'] = this._modelObject._description
+    result['apiPrefix'] = this._modelObject._identitySchema.apiPrefix
     this._sections.forEach((key) => {
       result[key] = []
     })

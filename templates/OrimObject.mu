@@ -17,6 +17,7 @@ export default class {{ name }} extends BaseRIMObject {
   {{/each}}
 
   static _NewID = 'New{{ modelName }}'
+  static _apiPrefix = '{{ apiPrefix }}'
 
   constructor (createFrom, dirtyVal, fetchingVal, newVal) {
     super(createFrom, dirtyVal, fetchingVal, newVal)

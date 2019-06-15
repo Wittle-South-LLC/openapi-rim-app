@@ -21,6 +21,7 @@ export default class StateObjectGenerator extends BaseModelGenerator {
   // Initializes context with an empty array for each section
   getInitialContext() {
     const result = super.getInitialContext()
+    result['isUser'] = this._modelObject._name === 'User' ? true : false
     this._sections.forEach((key) => {
       result[key] = []
     })

@@ -10,6 +10,7 @@ export class Schema {
     this._attributes = attributes
     this.description = attributes['description']
     this.identityObject = attributes['x-orim-create'] ? attributes['x-orim-create'] : attributes['x-smoacks-create']
+    this.apiPrefix = attributes['x-orim-api-prefix'] ? attributes['x-orim-api-prefix'] : 'undefined'
     this.smoacksObject = attributes['x-smoacks-object']
     this.smoacksApiVerbParam = attributes['x-smoacks-api-verb-param']
     this.smoacksApiVerbResp = attributes['x-smoacks-api-verb-resp']
