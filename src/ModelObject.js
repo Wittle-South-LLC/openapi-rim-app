@@ -16,39 +16,65 @@ export class ModelObject {
     this._description = description
     this._identitySchema = undefined
     this._updateSchema = undefined
+    this._properties = {}
     modelObjectService[this._name] = this
+    this._idProperties = []
+    this._rimType = 'simple'
   }
+
+  finalize () {
+    if (this._identitySchema) { this._processSchema(this._identitySchema) }
+    if (this._updateSchema) { this._processSchema(this._updateSchema) }
+  }
+
+  _processSchema (schema) {
+    this._properties = { ...this._properties, ...schema.getProperties() }    
+    for (var i = 0; i < schema._references.length; i++ ) {
+      const referenceSchemaName = schema._references[i].slice(21)
+      this._properties = { ...this._properties, ...schemaService[referenceSchemaName].getProperties() }
+    }
+    var idList = []
+    for (var propName in this._properties) {
+      if (this._properties[propName].isId) {
+        console.log(`Setting property ${propName} as ID for ${this._name} readOnly is ${this._properties[propName].readOnly}`)
+        idList.push(this._properties[propName])
+      }
+    }
+    this._idProperties = idList
+    if (this._idProperties.length > 1) {
+      this._rimType = 'relationship'
+    }
+  }
+
+  getIdentityName(prop) {
+    if (this._idProperties[0] === prop) {
+      console.log(`Returning LeftIdentity for ${prop.name}`)
+      return "LeftIdentity"
+    } else if (this._idProperties[1] === prop) {
+      console.log(`Returning RightIdentity for ${prop.name}`)
+      return "RightIdentity"
+    } else {
+      return "--InvalidModel--"
+    }
+  }
+
   getAllProperties() {
-    let result = {}
-    if (this._updateSchema) {
-      result = { ...result, ...this._updateSchema.getProperties() }
-      for (var i = 0; i < this._updateSchema._references.length; i++ ) {
-        const referenceSchemaName = this._updateSchema._references[i].slice(21)
-        result = { ...result, ...schemaService[referenceSchemaName].getProperties() }
-      }
-    }
-    if (this._identitySchema) {
-      result = { ...result, ...this._identitySchema.getProperties() }
-      for (var i = 0; i < this._identitySchema._references.length; i++ ) {
-        const referenceSchemaName = this._identitySchema._references[i].slice(21)
-        result = { ...result, ...schemaService[referenceSchemaName].getProperties() }
-      }
-    }
-    return result
+    return this._properties
   }
+
   getIdProperty() {
-    let result = undefined
-    const myProperties = this.getAllProperties()
-    for (var propName in myProperties) {
-      if (myProperties[propName].isId) {
-        result = myProperties[propName]
-      }
-    }
-    return result
+    return this._idProperties[0]
   }
+
 //  getCamelName() { return toCamelCase(this._name) }
   getMixedName() { return toMixedCase(this._name) }
 //  getSnakeName() { return toSnakeCase(this.name) }
-  setIdentitySchema(schema) { this._identitySchema = schema }
-  setUpdateSchema(schema) { this._updateSchema = schema }
+
+  setIdentitySchema(schema) {
+    this._identitySchema = schema
+  }
+
+  setUpdateSchema(schema) {
+    this._updateSchema = schema
+  }
 }

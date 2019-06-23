@@ -9,11 +9,12 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
     this._sections = ['varnames', 'defvals', 'getters', 'transforms', 'validators',
                       'payloads', 'valids', 'createOnlys', 'patterns']
     this._name = 'Orim' + modelObject._name
+    this.getFieldConstant = this.getFieldConstant.bind(this)
   }
 
   // Generates the class static constants representing field names in JSON payload
   getFieldConstant(prop) {
-    return `static _${prop.getMixedName()}Key = '${prop.name}'`
+    return `static _${prop.getMixedName(this._modelObject)}Key = '${prop.name}'`
   }
 
   // Generates statement to set default value for the property for new instances
@@ -26,7 +27,10 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
 
   // Generates the getter function for the property
   getGetter(prop) {
-    let result = `get${prop.getMixedName()} () { return this._data.get(${this._name}._${prop.getMixedName()}Key) }`
+    let result = `get${prop.getMixedName(this._modelObject)} () { return this._data.get(${this._name}._${prop.getMixedName(this._modelObject)}Key) }`
+    if (prop.isId) {
+      result += `\n  get${prop.getMixedName(undefined, false)} () { return this._data.get(${this._name}._${prop.getMixedName(this._modelObject)}Key) }`
+    }
     if (prop.type === 'string' && prop.format === 'date')
       result += `\n  get${prop.getMixedName()}String () { return this._data.get(${this._name}._${prop.getMixedName()}Key).toLocaleString() }`
     return result
@@ -34,7 +38,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
 
   // Generates the validator function for the property
   getValidator(prop) {
-    const getter = `get${prop.getMixedName()}()`
+    const getter = `get${prop.getMixedName(this._modelObject)}()`
     let resultConditions = []
     if (prop.minLength)
       resultConditions.push(`this.${getter}.length >= ${prop.minLength}`)
@@ -56,7 +60,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
       if (resultConditions.length > 0)
         result= `this.${getter} == null || \n          (` + result + ')'
     }
-    return `is${prop.getMixedName()}Valid () { return ${result} }`
+    return `is${prop.getMixedName(this._modelObject)}Valid () { return ${result} }`
   }
 
   // Generates payload element code for the property
@@ -74,15 +78,15 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
       convertSuffix = ')'
     }
     if (!prop.nullable) {
-      return `[${this._name}._${prop.getMixedName()}Key]: ${convertPrefix}this.get${prop.getMixedName()}()${transform}${convertSuffix},`
+      return `[${this._name}._${prop.getMixedName(this._modelObject)}Key]: ${convertPrefix}this.get${prop.getMixedName(this._modelObject)}()${transform}${convertSuffix},`
     } else {
-      return `[${this._name}._${prop.getMixedName()}Key]: this.get${prop.getMixedName()}() ? ${convertPrefix}this.get${prop.getMixedName()}()${transform}${convertSuffix} : null,`
+      return `[${this._name}._${prop.getMixedName(this._modelObject)}Key]: this.get${prop.getMixedName(this._modelObject)}() ? ${convertPrefix}this.get${prop.getMixedName(this._modelObject)}()${transform}${convertSuffix} : null,`
     }
   }
 
   // Generates property validation call for new object validity test
   getValids(prop) {
-    return `if (!this.is${prop.getMixedName()}Valid()) { result = false }`
+    return `if (!this.is${prop.getMixedName(this._modelObject)}Valid()) { result = false }`
   }
 
   // Generates input transformation code for reading response payloads
@@ -104,7 +108,8 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
   getInitialContext() {
     const result = super.getInitialContext()
     result['desc'] = this._modelObject._description
-    result['apiPrefix'] = this._modelObject._identitySchema.apiPrefix
+    result['apiPrefix'] = this._modelObject._identitySchema.apiPrefix ? this._modelObject._identitySchema.apiPrefix : ''
+    result['baseClass'] = this._modelObject._rimType === 'simple' ? 'SimpleObjectService' : 'RelationshipObjectService'
     this._sections.forEach((key) => {
       result[key] = []
     })

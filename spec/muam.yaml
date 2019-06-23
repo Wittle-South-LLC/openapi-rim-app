@@ -553,7 +553,7 @@ components:
           example: KLSDJKFJF-LKSJFLKJSDFJ
     Group:
       type: object
-      x-wsag-create: Group
+      x-smoacks-create: Group
       description: Named collection of users
       allOf:
         - $ref: '#/components/schemas/GroupShort'
@@ -589,15 +589,15 @@ components:
               example: '1995-08-19T00:00:00.001Z'
     GroupFull:
       description: Group with all attributes
-      x-wsag-update: Group
-      x-wsag-test-data: False
+      x-smoacks-update: Group
+      x-orim-test-data: False
       allOf:
         - $ref: '#/components/schemas/Group'
         - type: object
           properties:
             users:
               type: array
-              x-wsag-linked-objects: Membership
+              x-smoacks-linked-objects: Membership
               items:
                 $ref: '#/components/schemas/UserList'
     GroupList:
@@ -628,7 +628,7 @@ components:
       properties:
         group_id:
           type: string
-          x-wsag-model-id: true
+          x-smoacks-model-id: true
           nullable: false
           readOnly: true
           description: Unique group identifier
@@ -648,7 +648,7 @@ components:
           maxLength: 80
           example: app-users
     MembershipCreate:
-      x-wsag-create: Membership
+      x-smoacks-create: Membership
       type: object
       description: Group membership
       required:
@@ -656,6 +656,7 @@ components:
         - user_id
       properties:
         group_id:
+          x-smoacks-model-id: true
           type: string
           nullable: false
           description: Unique group identifier
@@ -663,6 +664,7 @@ components:
           maxLength: 40
           example: b5665877-f9ee-4074-a38b-39219cde6b4d
         user_id:
+          x-smoacks-model-id: true
           type: string
           description: Unique user identifier
           minLength: 12
@@ -689,9 +691,9 @@ components:
           description: Indicates if the user is an administrator of this group
           example: false
     User:
-      x-wsag-create: User
+      x-smoacks-create: User
       description: User
-      x-wsag-test-data: False
+      x-orim-test-data: False
       allOf:
         - $ref: '#/components/schemas/UserShort'
         - $ref: '#/components/schemas/UserCore'
@@ -765,7 +767,7 @@ components:
           readOnly: true
           example: '1995-08-19T00:00:00.003Z'
     UserExtended:
-      x-wsag-extended: User
+      x-orim-extended: User
       description: User with related objects list
       allOf:
         - $ref: '#/components/schemas/UserShort'
@@ -773,7 +775,7 @@ components:
         - type: object
           properties:
             groups:
-              x-wsag-linked-object: Membership
+              x-orim-linked-object: Membership
               nullable: true
               type: array
               items:
@@ -783,7 +785,6 @@ components:
       properties:
         user_id:
           type: string
-          x-wsag-model-id: true
           description: Unique user identifier
           format: uuid
           minLength: 12
@@ -804,7 +805,7 @@ components:
       properties:
         user_id:
           type: string
-          x-wsag-model-id: true
+          x-smoacks-model-id: true
           description: Unique user identifier
           readOnly: True
           minLength: 12
@@ -817,9 +818,9 @@ components:
           maxLength: 32
           example: 'testing'
     UserUpdate:
-      x-wsag-update: User
+      x-orim-update: User
       description: User
-      x-wsag-test-data: False
+      x-orim-test-data: False
       allOf:
         - $ref: '#/components/schemas/UserShort'
         - $ref: '#/components/schemas/UserCore'
@@ -835,6 +836,6 @@ components:
             groups:
               type: array
               nullable: true
-              x-wsag-linked-object: Membership
+              x-orim-linked-object: Membership
               items:
                 $ref: '#/components/schemas/GroupList'

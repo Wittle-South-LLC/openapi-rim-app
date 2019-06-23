@@ -10,7 +10,6 @@ export default class OrimServiceGenerator extends BaseSingleGenerator {
     this._sections = ['imports', 'exports', 'addReducers']
   }
   getImport(model) {
-    console.log(`----> model._name = ${model._name}`)
     if (model._name != 'User') {
       return `import ${model.getMixedName()} from './${model.getMixedName()}'`
     } else {
@@ -19,9 +18,9 @@ export default class OrimServiceGenerator extends BaseSingleGenerator {
   }
 
   getExport(model) {
-    console.log(`---2> model._name = ${model._name}`)
+    const serviceClassName = model._rimType === 'simple' ? "SimpleObject" : "RelationshipObject"
     if (model._name != 'User') {
-      return `export const ${model.getMixedName()}Service = new BaseRIMService(${model.getMixedName()}, config)`
+      return `export const ${model.getMixedName()}Service = new ${serviceClassName}Service(${model.getMixedName()}, config)`
     } else {
       return `export const UserService = new CustomUserService(config)`
     }

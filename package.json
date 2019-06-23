@@ -1,6 +1,6 @@
 {
   "name": "openapi-rim-app",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Generates OpenAPI redux-immutable-model application",
   "main": "dist/index.js",
   "scripts": {
@@ -34,7 +34,7 @@
   },
   "peerDependencies": {
     "immutable": "^4.0.0-rc.12",
-    "redux-immutable-model": "^0.4.1"
+    "redux-immutable-model": "^0.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -56,6 +56,9 @@
     "spec": "./spec/muam.yaml",
     "paths": {
       "stateObjects": "./app/src/state",
+      "sourceRoot": "app/src",
+      "sourceUtil": "app/src/utils",
+      "util": "app/util",
       "tests": "./app/tests",
       "templates": "./templates"
     },
@@ -102,5 +105,8 @@
     ],
     "sourceMap": false,
     "instrument": false
+  },
+  "publishConfig":{
+    "registry": "http://npm.wittlesouth.local"
   }
 }

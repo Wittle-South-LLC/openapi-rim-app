@@ -1,5 +1,5 @@
 /* OrimServices.js - Instantiates services for model objects */
-import { BaseRIMService, Configuration } from 'redux-immutable-model'
+import { Configuration, RelationshipObjectService, SimpleObjectService } from 'redux-immutable-model'
 import { applyHeaders } from '../utils/jwt'
 {{#each imports }}
 {{{ this }}}

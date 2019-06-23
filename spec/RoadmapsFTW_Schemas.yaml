@@ -33,20 +33,20 @@ components:
           type: string
           description: Password of user attemptingt to log in
     UserFull:
-      x-wsag-update: User
+      x-orim-update: User
       allOf:
         - $ref: '#/components/schemas/UserCreate'
         - type: object
           properties:
             user_id:
               type: string
-              x-wsag-model-id: true
+              x-orim-model-id: true
               description: Unique User Identifier
               readOnly: true
               example: 'UserID1'
     UserCreate:
       type: object
-      x-wsag-create: User
+      x-orim-create: User
       description: User
       required:
         - username
@@ -66,9 +66,9 @@ components:
           type: string
           example: '123456'
           description: Password for user
-          x-wsag-create-only: true
+          x-orim-create-only: true
     Roadmap:
-      x-wsag-create: Roadmap
+      x-orim-create: Roadmap
       description: Roadmap
       required:
         - name
@@ -76,7 +76,7 @@ components:
       properties:
         roadmap_id:
           type: string
-          x-wsag-model-id: true
+          x-orim-model-id: true
           description: Unique Identifier (UUID) for the roadmap
           readOnly: true
           example: Roadmap1
@@ -92,7 +92,7 @@ components:
           description: Date this record was created
           example: '2019-01-05T00:00:00.000Z'
           readOnly: true
-          x-wsag-base-object: true
+          x-orim-base-object: true
         short_desc:
           type: string
           description: Short description of the roadmap item
@@ -106,7 +106,7 @@ components:
           example:
             roadmap_items: ['RoadmapItem1']
     RoadmapItem:
-      x-wsag-create: RoadmapItem
+      x-orim-create: RoadmapItem
       description: Roadmap item
       required:
         - name
@@ -115,7 +115,7 @@ components:
         roadmap_item_id:
           type: string
           description: Unique Identifier (UUID) for the roadmap item
-          x-wsag-model-id: true
+          x-orim-model-id: true
           readOnly: true
           example: RoadmapItem1
         roadmap_sequence_id:
@@ -159,7 +159,7 @@ components:
           description: Date this record was created
           example: '2019-01-05T00:00:00.001Z'
           readOnly: true
-          x-wsag-base-object: true
+          x-orim-base-object: true
         roadmap_status:
           type: string
           description: Status of this item on the roadmap
@@ -203,7 +203,7 @@ components:
           example:
             datasheet_url: https://example.com/MyDatasheet.pdf
     Tag:
-      x-wsag-create: Tag
+      x-orim-create: Tag
       description: Tag
       required:
         - name
@@ -213,7 +213,7 @@ components:
         tag_id:
           type: string
           description: Unique Identifier (UUID) for the tag
-          x-wsag-model-id: true
+          x-orim-model-id: true
           readOnly: true
           example: Tag1
         name:
@@ -251,6 +251,6 @@ components:
           example: '2019-01-05T00:00:00.002Z'
           description: Date this record was created
           readOnly: true
-          x-wsag-base-object: true
+          x-orim-base-object: true
 
 

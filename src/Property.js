@@ -30,7 +30,11 @@ export default class Property {
 
   // ID code generation is special cased
 //  getCamelName () { return this.isId ? "id" : toCamelCase(this.name) }
-  getMixedName () { return this.isId ? "Identity": toMixedCase(this.name) }
+  getMixedName ( model, translateIdentity = true ) {
+    if (!this.isId || !translateIdentity) { return toMixedCase(this.name) }
+    if (!model || model._rimType === 'simple') { return "Identity" }
+    return model.getIdentityName( this )
+  }
   getIntlName () {
     var baseName = toMixedCase(this.name)
     return baseName.charAt(0).toLowerCase() + baseName.slice(1)

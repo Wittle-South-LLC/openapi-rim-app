@@ -2,21 +2,20 @@
 /* DO NOT EDIT THIS GENERATED FILE - Edit the subclass state file instead! */
 
 import { Map } from 'immutable'
-import { defaultVerbs, BaseRIMObject } from 'redux-immutable-model'
+import { defaultVerbs, {{ baseClass }} } from 'redux-immutable-model'
 
 // Define any constants required for pattern validations
 {{#each patterns}}
 {{{ this }}}
 {{/each}}
 
-export default class {{ name }} extends BaseRIMObject {
+export default class {{ name }} extends {{ baseClass }} {
 
   // Define constants that correspond to field names in API data
   {{#each varnames }}
   {{{ this }}}
   {{/each}}
 
-  static _NewID = 'New{{ modelName }}'
   static _apiPrefix = '{{ apiPrefix }}'
 
   constructor (createFrom, dirtyVal, fetchingVal, newVal) {

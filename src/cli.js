@@ -101,7 +101,9 @@ for (var schema in doc.components.schemas) {
 
 // For each model object, generate the model object specific source files
 for (var objectName in modelObjectService) {
-  console.log(`Generating source for model object ${objectName}: `)
+  // Process the schemas assigned to the model object above before using the model object
+  modelObjectService[objectName].finalize()
+  console.log(`Generating source for model object ${objectName} of type ${modelObjectService[objectName]._rimType}: `)
   const stateGenerator = new StateObjectGenerator(config, modelObjectService[objectName])
   stateGenerator.render()
   const generator = new OrimObjectGenerator(config, modelObjectService[objectName])
