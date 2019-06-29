@@ -26,6 +26,7 @@ export default class Property {
     this.nullable = attributes['nullable']
     this.pattern = attributes['pattern']
     this.readOnly = 'readOnly' in attributes ? attributes.readOnly : false
+    this.writeOnly = 'writeOnly' in attributes ? attributes.writeOnly : false
   }
 
   // ID code generation is special cased

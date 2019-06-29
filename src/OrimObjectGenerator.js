@@ -118,7 +118,9 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
 
   processProperty(context, prop) {
     context['varnames'].push(this.getFieldConstant(prop))
-    context['defvals'].push(this.getDefaultValue(prop))
+    if (!prop.writeOnly) {
+      context['defvals'].push(this.getDefaultValue(prop))
+    }
     context['getters'].push(this.getGetter(prop))
     if (prop.needsInputTransform()) context['transforms'].push(this.getInputTransform(prop))
     if (prop.needsValidation()) {
