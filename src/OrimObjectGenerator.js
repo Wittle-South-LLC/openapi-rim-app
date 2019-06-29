@@ -109,7 +109,7 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
     const result = super.getInitialContext()
     result['desc'] = this._modelObject._description
     result['apiPrefix'] = this._modelObject._identitySchema.apiPrefix ? this._modelObject._identitySchema.apiPrefix : ''
-    result['baseClass'] = this._modelObject._rimType === 'simple' ? 'SimpleObjectService' : 'RelationshipObjectService'
+    result['baseClass'] = this._modelObject._rimType === 'simple' ? 'SimpleRIMObject' : 'RelationshipRIMObject'
     this._sections.forEach((key) => {
       result[key] = []
     })
