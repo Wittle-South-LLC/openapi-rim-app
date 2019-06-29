@@ -5,7 +5,7 @@ export default class AppContainerGenerator extends BaseSingleGenerator {
   constructor(config, modelObjects) {
     super (modelObjects,
       config['paths']['templates'] + '/' + config['templates']['AppContainer'],
-      config['paths']['sourceRoot'] + '/AppContainer.js',
+      config['paths']['sourceRoot'] + '/AppContainer.jsx',
       false)
     this._sections = []
   }

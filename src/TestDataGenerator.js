@@ -16,6 +16,7 @@ export default class TestDataGenerator extends BaseSingleGenerator {
     let propCount = 0
     for (var propName in propertyList) {
       const prop = propertyList[propName]
+      if (prop.writeOnly) continue
       propCount > 0
         ? result += `,\n    ${prop.name}: ${prop.exampleValue()}`
         : result += `    ${prop.name}: ${prop.exampleValue()}`

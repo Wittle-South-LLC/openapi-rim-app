@@ -5,7 +5,7 @@ export default class ShowStateGenerator extends BaseSingleGenerator {
   constructor(config, modelObjects) {
     super (modelObjects,
       config['paths']['templates'] + '/' + config['templates']['ShowState'],
-      config['paths']['sourceUtil'] + '/ShowState.js',
+      config['paths']['sourceUtil'] + '/ShowState.jsx',
       false)
     this._sections = ['stateObjects']
   }
