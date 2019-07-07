@@ -1,14 +1,10 @@
 /* test-state-{{ name }}.js - Tests {{ name }} state */
 import { describe, it, beforeEach } from 'mocha'
 import chai from 'chai'
-// import nock from 'nock'
-// import { isd } from './TestUtils'
 import {{name}} from '../src/state/{{ name }}'
 import { {{name}}Service } from '../src/state/OrimServices'
-// import baseApp from '../src/state/baseApp'
+import { defaultVerbs } from 'redux-immutable-model'
 import { defaultState } from './TestData'
-// import { testCreateNew, testEditField, testLogin, testSaveNew,
-//          testSaveUpdate, testSaveDelete } from './ActionTests'
 
 const TEST_ID = {{{ exampleId }}}
 const TCLASS = {{ name }}

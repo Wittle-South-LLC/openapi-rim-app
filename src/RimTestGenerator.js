@@ -50,8 +50,8 @@ export default class RimTestGenerator extends BaseModelGenerator {
         resultObj[prop.name] = prop.example ? prop.example : null
       }
     }
-    return `it ('getCreatePayload() returns correct payload', () => {\n` +
-           `    chai.expect(testObj.getCreatePayload()).to.eql(${JSON.stringify(resultObj)})\n  })`
+    return `it ('getFetchPayload(SAVE_NEW) returns correct payload', () => {\n` +
+           `    chai.expect(testObj.getFetchPayload(defaultVerbs.SAVE_NEW)).to.eql(${JSON.stringify(resultObj)})\n  })`
   }
 
   getUpdatePayloadTest() {
@@ -63,8 +63,8 @@ export default class RimTestGenerator extends BaseModelGenerator {
         resultObj[prop.name] = prop.example ? prop.example : null
       }
     }
-    return `it ('getUpdatePayload() returns correct payload', () => {\n` +
-           `    chai.expect(testObj.getUpdatePayload()).to.eql(${JSON.stringify(resultObj)})\n  })`
+    return `it ('getFetchPayload(SAVE_UPDATE) returns correct payload', () => {\n` +
+           `    chai.expect(testObj.getFetchPayload(defaultVerbs.SAVE_UPDATE)).to.eql(${JSON.stringify(resultObj)})\n  })`
   }
 
   getInitialContext() {
