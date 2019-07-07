@@ -30,15 +30,17 @@ export default class RimTestGenerator extends BaseModelGenerator {
   }
 
   getValidTest(prop) {
-    return `it ('is${prop.getMixedName()}Valid() returns true for valid ${prop.getMixedName()}', () => {\n` +
-           `    chai.expect(testObj.is${prop.getMixedName()}Valid()).to.equal(true)\n  })`
+    var propName = prop.isId ? this._modelObject.getIdentityName(prop) : prop.getMixedName()
+    return `it ('is${propName}Valid() returns true for valid ${propName}', () => {\n` +
+           `    chai.expect(testObj.is${propName}Valid()).to.equal(true)\n  })`
   }
 
   getInvalidTest(prop) {
-    return `it ('is${prop.getMixedName()}Valid() returns false for invalid ${prop.getMixedName()}', () => {\n` +
-           `    const invalidObj = testObj.updateField(TCLASS._${prop.getMixedName()}Key, ${prop.getInvalidValue()})\n` +
+    var propName = prop.isId ? this._modelObject.getIdentityName(prop) : prop.getMixedName()
+    return `it ('is${propName}Valid() returns false for invalid ${propName}', () => {\n` +
+           `    const invalidObj = testObj.updateField(TCLASS._${propName}Key, ${prop.getInvalidValue()})\n` +
            `    chai.expect(invalidObj.isValid()).to.equal(false)\n` +
-           `    chai.expect(invalidObj.is${prop.getMixedName()}Valid()).to.equal(false)\n  })`
+           `    chai.expect(invalidObj.is${propName}Valid()).to.equal(false)\n  })`
   }
 
   getCreatePayloadTest() {
@@ -67,10 +69,11 @@ export default class RimTestGenerator extends BaseModelGenerator {
            `    chai.expect(testObj.getFetchPayload(defaultVerbs.SAVE_UPDATE)).to.eql(${JSON.stringify(resultObj)})\n  })`
   }
 
+  //TODO: Need to have exampleId set correctly for relationship objects
   getInitialContext() {
     const result = super.getInitialContext()
     if (this._modelObject.getIdProperty())
-      result['exampleId'] = this._modelObject.getIdProperty().exampleValue()
+      result['exampleId'] = this._modelObject.getExampleId()
     result['hasName'] = this._modelObject._properties['name'] ? true : false
     result['getCreatePayload'] = this.getCreatePayloadTest()
     result['getUpdatePayload'] = this.getUpdatePayloadTest()
@@ -81,7 +84,9 @@ export default class RimTestGenerator extends BaseModelGenerator {
   }
 
   processProperty(context, prop) {
-    context['getterTests'].push(this.getGetterTest(prop))
+    if (!prop.isId) {
+      context['getterTests'].push(this.getGetterTest(prop))
+    }
     if (prop.needsValidation()) {
       context['validTests'].push(this.getValidTest(prop))
       context['invalidTests'].push(this.getInvalidTest(prop))

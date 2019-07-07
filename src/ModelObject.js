@@ -47,11 +47,12 @@ export class ModelObject {
   }
 
   getIdentityName(prop) {
+    if (this._idProperties.length == 1) {
+      return prop.getMixedName()
+    }
     if (this._idProperties[0] === prop) {
-      console.log(`Returning LeftIdentity for ${prop.name}`)
       return "LeftIdentity"
     } else if (this._idProperties[1] === prop) {
-      console.log(`Returning RightIdentity for ${prop.name}`)
       return "RightIdentity"
     } else {
       return "--InvalidModel--"
@@ -60,6 +61,14 @@ export class ModelObject {
 
   getAllProperties() {
     return this._properties
+  }
+
+  getExampleId() {
+    if (this._idProperties.length == 1) {
+      return this._idProperties[0].exampleValue()
+    } else {
+      return `'${this._idProperties[0].example}/${this._idProperties[1].example}'`
+    }
   }
 
   getIdProperty() {

@@ -66,6 +66,7 @@ export default class Property {
 
   // Get invalid value for validation tests
   getInvalidValue () {
+    if (this.isId) return "''"
     if (this.type !== 'string' || !this.nullable) return 'undefined'
     if (this.minLength) return "'X'"
     if (this.maxLength) return "'" + 'X'.repeat(this.maxLength + 1) + "'"
