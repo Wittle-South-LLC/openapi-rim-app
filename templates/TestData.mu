@@ -12,7 +12,8 @@ export const defaultState = baseApp(undefined, {
   type: 'async',
   verb: defaultVerbs.LOGIN,
   status: status.SUCCESS,
-  receivedData: defaultLoginData
+  receivedData: defaultLoginData,
+  rimObj: new User()
 })
 
 export const resetState = () => baseApp(undefined, {
