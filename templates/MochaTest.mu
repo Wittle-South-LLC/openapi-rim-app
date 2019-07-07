@@ -14,10 +14,10 @@ describe('{{ name }}: testing RimObject actions', () => {
   beforeEach(() => {
     TSERVICE.setState(defaultState.get(TSERVICE.getStatePath()))
   })
-  it('new returns an empty object', () => {
+  {{#if hasName }}it('new returns an empty object', () => {
     let myObj = new TCLASS()
     chai.expect(myObj.getName()).to.equal('')
-  })
+  }){{/if}}
   it('can create an object that is already dirty', () => {
     let myObj = new TCLASS({}, true)
     chai.expect(myObj.isDirty()).to.be.true
