@@ -32,24 +32,24 @@
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
     "js-yaml": "^3.13.1",
-    "redux-immutable-model": "^0.6.1-15"
+    "redux-immutable-model": "^0.6.1"
   },
   "peerDependencies": {
     "immutable": "^4.0.0-rc.12",
-    "redux-immutable-model": "^0.6.0"
+    "redux-immutable-model": "^0.6.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.3",
-    "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
-    "babel-plugin-istanbul": "^5.1.1",
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/node": "^7.5.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "babel-plugin-istanbul": "^5.1.4",
     "chai": "^4.2.0",
     "deep-diff": "^1.0.2",
     "handlebars": "^4.1.2",
     "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
+    "mocha": "^6.1.4",
     "nock": "^10.0.6",
     "nyc": "^14.1.1",
     "redux-immutable": "^4.0.0"
@@ -109,6 +109,6 @@
     "instrument": false
   },
   "publishConfig": {
-    "registry": "http://npm.wittlesouth.local"
+    "registry": "https://npm.wittlesouth.com"
   }
 }
