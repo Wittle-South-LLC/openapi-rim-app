@@ -1,7 +1,6 @@
 /* clientState.js - Holds client (non-persistent) state for app */
 import { fromJS, Map } from 'immutable'
 import { config } from './OrimServices'
-import User from './User'
 import { status } from 'redux-immutable-model'
 
 // State path constants
