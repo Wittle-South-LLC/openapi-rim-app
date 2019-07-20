@@ -43,10 +43,12 @@ export function reducer(state = Map({[LOGGED_IN_USER]: undefined}), action) {
     // successful, we'll be storing a user object in application state; we want it to
     // have the actual user UUID. That actual UUID is returned as payload from login,
     // so update the rimObj with the user UUID before saving.
-    return state.set(LOGGED_IN_USER, action.rimObj.updateField(User._IdentityKey, action.receivedData.Users[0][User._IdentityKey]))
+    return state.set(LOGGED_IN_USER_ID, action.receivedData.auth_user_id)
                 .set(NEEDS_HYDRATE, true)
   } else if (action.verb === config.verbs.LOGOUT && action.status === status.SUCCESS) {
-    return state.set(LOGGED_IN_USER, undefined)
+    return state.set(LOGGED_IN_USER_ID, undefined)
+  } else if (action.verb === config.verbs.HYDRATE && action.status === status.SUCCESS) {
+    return action.receivedData.auth_user_id ? state.set(LOGGED_IN_USER_ID, action.receivedData.auth_user_id) : state
   } else {
     return state.has(NEEDS_HYDRATE) ? state.delete(NEEDS_HYDRATE) : state
   }
