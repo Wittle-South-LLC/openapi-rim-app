@@ -1,6 +1,7 @@
 import { Map } from 'immutable'
 import { defaultVerbs, status } from 'redux-immutable-model'
 import baseApp from '../src/state/baseApp'
+import User from '../src/state/User'
 
 export const defaultLoginData = {
   {{#each testData }}
