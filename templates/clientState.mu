@@ -6,7 +6,7 @@ import { status } from 'redux-immutable-model'
 
 // State path constants
 export const CLIENT_STATE_PATH = 'clientState'
-export const LOGGED_IN_USER = 'loggedInUser'
+export const LOGGED_IN_USER_ID = 'loggedInUserId'
 export const NEEDS_HYDRATE = 'pleaseHydrate'
 
 // Constants that represent client state actions
@@ -23,8 +23,8 @@ export function setNewPath (newPath) {
   return { type: TRANSITION_TO, newPath }
 }
 
-export function loggedInUser (state) {
-  return state.getIn([CLIENT_STATE_PATH, LOGGED_IN_USER])
+export function loggedInUserId (state) {
+  return state.getIn([CLIENT_STATE_PATH, LOGGED_IN_USER_ID])
 }
 
 export function needsHydrate (state) {
