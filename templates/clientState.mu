@@ -31,7 +31,7 @@ export function needsHydrate (state) {
   return state.hasIn([CLIENT_STATE_PATH, NEEDS_HYDRATE])
 }
 
-export function reducer(state = Map({[LOGGED_IN_USER]: undefined}), action) {
+export function reducer(state = Map({[LOGGED_IN_USER_ID]: undefined}), action) {
   if (action.type === SET_MESSAGE) {
     return state.delete('transitionTo')
                 .set('message', fromJS(action.message))
