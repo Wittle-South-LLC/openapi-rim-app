@@ -647,6 +647,11 @@ components:
           minLength: 4
           maxLength: 80
           example: app-users
+        valid_date:
+          type: string
+          format: date
+          description: Date value for testing
+          example: '2019-06-01T12:35:00.000Z'
     MembershipCreate:
       x-smoacks-create: Membership
       type: object

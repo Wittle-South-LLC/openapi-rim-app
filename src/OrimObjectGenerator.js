@@ -44,6 +44,8 @@ export default class OrimObjectGenerator extends BaseModelGenerator {
       resultConditions.push(`this.${getter}.length >= ${prop.minLength}`)
     if (prop.maxLength)
       resultConditions.push(`this.${getter}.length <= ${prop.maxLength}`)
+    if (prop.type === 'string' && prop.format === 'date')
+      resultConditions.push(`this.${getter} instanceof Date && !isNaN(this.${getter})`)
     if (prop.enum)
       resultConditions.push(`['${prop.enum.join("','")}'].includes(this.${getter})`)
     if (prop.pattern)
